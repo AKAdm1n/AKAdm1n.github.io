@@ -78,17 +78,27 @@
         const downloadButton = document.getElementById("downloadButton");
         const combineDownloadButton = document.getElementById("combineDownloadButton");
         const whitelistDisplay = document.getElementById("whitelist");
-        
+
         // Initialize the whitelist
         let whitelist = [];
 
         // Function to display the whitelist
         function displayWhitelist() {
             whitelistDisplay.innerHTML = ""; // Clear the current display
-            whitelist.forEach(username => {
+            whitelist.forEach((username) => {
                 const listItem = document.createElement("li");
-                listItem.className = "list-group-item";
+                listItem.className = "list-group-item d-flex justify-content-between align-items-center";
                 listItem.textContent = username;
+
+                // Create a remove button
+                const removeButton = document.createElement("button");
+                removeButton.className = "btn btn-danger btn-sm";
+                removeButton.textContent = "Remove";
+                removeButton.onclick = () => {
+                    removeUsername(username);
+                };
+
+                listItem.appendChild(removeButton);
                 whitelistDisplay.appendChild(listItem);
             });
         }
@@ -101,6 +111,12 @@
                 displayWhitelist();
                 usernameInput.value = ""; // Clear the input field
             }
+        }
+
+        // Function to remove username
+        function removeUsername(username) {
+            whitelist = whitelist.filter((user) => user !== username);
+            displayWhitelist();
         }
 
         // Event listener for button click
