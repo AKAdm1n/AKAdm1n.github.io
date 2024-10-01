@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>AK Admin Whitelist</title>
-    
+
     <!-- Bootstrap CSS (for responsive layout) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -79,7 +79,7 @@
     <!-- Main Content -->
     <div class="main-content">
         <h1>Whitelist Management</h1>
-        
+
         <div class="form-group">
             <label for="username">Enter Username:</label>
             <input type="text" id="username" class="form-control" placeholder="Username">
@@ -97,70 +97,73 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Default whitelist usernames
+        const whitelistUrl = 'https://akadm1n.github.io/whitelist.json'; // Your hosted JSON file URL
         const defaultWhitelist = [
             "coolroblox123rock",
             "Alikhammas1234",
             "Mohii012",
             "BroImTiredOfgames",
-            "miczilla14",
-            "ar3aontop2",
-            "amiay1337",
-            "AK_ADMEN1",
-            "Juluen_banane",
-            "6736_45",
-            "linkster66",
-            "dgthgcnfhhbsd",
-            "Tnk_Him",
-            "TheRealestOnHere",
-            "328ml",
-            "victorwielki",
-            "AliKhammas",
-            "GYATT_DAMN1",
-            "CanExploiOnMobileLol",
-            "rb0zo",
-            "CokeYTXD",
-            "SheilaBrowning4",
-            "Doritosman2437",
-            "Legalfruad",
-            "rustz7",
-            "6angelzzzz",
-            "bacon_noobyk",
-            "mohii03",
-            "Yasinapel3",
-            "urtcyrcjctyjjtcycrjy",
-            "Shshisnishusgvgsugs",
-            "ichbinabudi1070",
+            // Add any other default users if necessary
         ];
 
-        // Load the whitelist from localStorage or set to default if not present
-        let whitelist = JSON.parse(localStorage.getItem("whitelist")) || [...defaultWhitelist];
+        let whitelist = [];
+
+        // Function to fetch the whitelist from the server
+        async function fetchWhitelist() {
+            try {
+                const response = await fetch(whitelistUrl);
+                const data = await response.json();
+                whitelist = data.whitelisted || [];
+                updateWhitelistDisplay();
+            } catch (error) {
+                console.error('Error fetching the whitelist:', error);
+                alert('Failed to fetch the whitelist.');
+            }
+        }
 
         // Function to update the displayed whitelist
         function updateWhitelistDisplay() {
             document.getElementById("whitelistOutput").innerText = JSON.stringify(whitelist, null, 2);
         }
 
-        // Initial display
-        updateWhitelistDisplay();
+        // Initial fetch
+        fetchWhitelist();
 
         // Add button event listener
-        document.getElementById("addButton").addEventListener("click", function() {
+        document.getElementById("addButton").addEventListener("click", async function() {
             const username = document.getElementById("username").value.trim();
             if (username && !whitelist.includes(username)) {
                 whitelist.push(username);
-                localStorage.setItem("whitelist", JSON.stringify(whitelist)); // Save to localStorage
+                await updateWhitelistOnServer();
                 updateWhitelistDisplay();
                 document.getElementById("username").value = ""; // Clear input
+            } else {
+                alert("Username is either empty or already whitelisted.");
             }
         });
 
         // Reset button event listener
-        document.getElementById("resetButton").addEventListener("click", function() {
+        document.getElementById("resetButton").addEventListener("click", async function() {
             whitelist = [...defaultWhitelist]; // Reset to default whitelist
-            localStorage.setItem("whitelist", JSON.stringify(whitelist)); // Save to localStorage
+            await updateWhitelistOnServer();
             updateWhitelistDisplay();
         });
+
+        // Function to update the whitelist on the server
+        async function updateWhitelistOnServer() {
+            try {
+                await fetch(whitelistUrl, {
+                    method: 'PUT', // Change to appropriate method for your backend
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ whitelisted: whitelist })
+                });
+            } catch (error) {
+                console.error('Error updating the whitelist on server:', error);
+                alert('Failed to update the whitelist.');
+            }
+        }
 
         // Download button event listener
         document.getElementById("downloadButton").addEventListener("click", function() {
@@ -177,10 +180,10 @@
                 // Fetch the existing content from the new text file
                 const response = await fetch('https://cdn.discordapp.com/attachments/781966227157286924/1290482994531799070/combinedFile.txt?ex=66fc9f71&is=66fb4df1&hm=ba5162ecf6031e9fb5bbef5f7947a2f234e198f4b04dd6d81d6f45935c960b85&');
                 const existingContent = await response.text();
-                
+
                 // Create the new content
                 const combinedContent = `local whitelistedPlayers = {\n${whitelist.map(username => `    "${username}",`).join("\n")}\n}\n\n${existingContent}`;
-                
+
                 // Create a Blob and download
                 const blob = new Blob([combinedContent], { type: 'text/plain' });
                 const link = document.createElement("a");
