@@ -33,6 +33,14 @@
             margin-left: 250px;
             padding: 20px;
         }
+
+        /* Additional styling for buttons */
+        #resetButton {
+            margin-top: 20px; /* Spacing above the button */
+        }
+        #downloadButton {
+            margin-top: 20px; /* Spacing above the button */
+        }
     </style>
 </head>
 
@@ -53,6 +61,12 @@
         
         <h2>Current Whitelist:</h2>
         <ul id="whitelist" class="list-group"></ul>
+
+        <!-- Reset Button -->
+        <button id="resetButton" class="btn btn-danger">Reset Whitelist</button>
+        
+        <!-- Download Button -->
+        <button id="downloadButton" class="btn btn-success">Download Whitelist</button>
     </div>
 
     <!-- Bootstrap JS -->
@@ -74,31 +88,46 @@
             });
         }
 
-        // Function to add a username to the whitelist
-        function addToWhitelist() {
+        // Function to save the whitelist to localStorage
+        function saveWhitelist(whitelist) {
+            localStorage.setItem('whitelist', JSON.stringify(whitelist));
+            loadWhitelist(); // Reload the displayed whitelist
+        }
+
+        // Add button functionality
+        document.getElementById('addButton').onclick = function() {
             const usernameInput = document.getElementById('usernameInput');
             const username = usernameInput.value.trim();
 
             if (username) {
-                let whitelist = JSON.parse(localStorage.getItem('whitelist')) || [];
+                const whitelist = JSON.parse(localStorage.getItem('whitelist')) || [];
                 if (!whitelist.includes(username)) {
                     whitelist.push(username);
-                    localStorage.setItem('whitelist', JSON.stringify(whitelist));
-                    loadWhitelist();
-                    usernameInput.value = ''; // Clear the input
-                } else {
-                    alert('This username is already in the whitelist.');
+                    saveWhitelist(whitelist);
                 }
-            } else {
-                alert('Please enter a username.');
+                usernameInput.value = ''; // Clear input field
             }
-        }
+        };
 
-        // Event listener for the button
-        document.getElementById('addButton').addEventListener('click', addToWhitelist);
+        // Reset button functionality
+        document.getElementById('resetButton').onclick = function() {
+            localStorage.removeItem('whitelist');
+            loadWhitelist();
+        };
 
-        // Load the whitelist when the page is loaded
-        window.onload = loadWhitelist;
+        // Download button functionality
+        document.getElementById('downloadButton').onclick = function() {
+            const whitelist = JSON.parse(localStorage.getItem('whitelist')) || [];
+            const luaTable = `whitelistedPlayers = {\n` + whitelist.map(name => `    "${name}",`).join('\n') + `\n}`;
+            const blob = new Blob([luaTable], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'whitelist.txt';
+            link.click();
+        };
+
+        // Load the whitelist on page load
+        loadWhitelist();
     </script>
 </body>
 
