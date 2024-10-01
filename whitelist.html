@@ -13,8 +13,7 @@
         <h1>Whitelist Management</h1>
         <input type="text" id="username" placeholder="Enter username" class="form-control" />
         <button id="addButton" class="btn btn-primary">Add to Whitelist</button>
-        <button id="downloadButton" class="btn btn-success">Download Whitelist</button>
-        <button id="combineDownloadButton" class="btn btn-info">Combine Download</button>
+        <button id="combineDownloadButton" class="btn btn-success">Download Script</button>
 
         <h2>Current Whitelisted Users</h2>
         <ul id="whitelistUsers" class="list-group"></ul>
@@ -57,24 +56,6 @@
                     }
                 });
             }
-        };
-
-        // Download whitelist as a Lua table
-        document.getElementById('downloadButton').onclick = () => {
-            fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist')
-                .then(response => response.json())
-                .then(users => {
-                    const luaContent = `local whitelistedPlayers = {\n${users.map(user => `  "${user}",`).join('\n')}\n}`; // Create Lua content
-                    const blob = new Blob([luaContent], { type: 'text/plain' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'whitelistedPlayers.txt'; // The name of the downloaded file
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                });
         };
 
         // Combine Download button
