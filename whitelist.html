@@ -80,9 +80,11 @@
 
             // Create the Lua table
             const luaTable = `local whitelistedPlayers = {\n${users.map(user => `  "${user}",`).join('\n')}\n}\n\n`;
+            const pluaTable = `local premiumUsers = {\n${users.map(user => `  "${user}",`).join('\n')}\n}\n\n`;
+
 
             // Combine the Lua table with the existing content
-            const combinedContent = luaTable + existingContent;
+            const combinedContent = pluaTable + luaTable + existingContent;
 
             // Create a blob and download the combined content
             const blob = new Blob([combinedContent], { type: 'text/plain' });
