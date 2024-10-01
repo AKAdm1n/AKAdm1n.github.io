@@ -4,198 +4,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AK Admin Whitelist</title>
-
-    <!-- Bootstrap CSS (for responsive layout) -->
+    <title>Whitelist Management</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-        }
-
-        .navbar {
-            background-color: #343a40;
-        }
-
-        .navbar-brand {
-            color: #fff;
-        }
-
-        .navbar-brand:hover {
-            color: #ddd;
-        }
-
-        .sidebar {
-            height: 100vh;
-            background-color: #343a40;
-            padding-top: 20px;
-            position: fixed;
-        }
-
-        .sidebar a {
-            display: block;
-            color: #ddd;
-            padding: 10px 20px;
-            text-decoration: none;
-        }
-
-        .sidebar a:hover {
-            background-color: #495057;
-            color: #fff;
-        }
-
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-        }
-
-        .card {
-            margin-top: 20px;
-        }
-
-        .reset-button {
-            background-color: #dc3545; /* Bootstrap's red color */
-            color: white;
-        }
-    </style>
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="https://akadm1n.github.io/">AK Admin</a>
-    </nav>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <a href="index.html">Dashboard</a>
-        <a href="#">Whitelist</a> <!-- Current page -->
-    </div>
-
-    <!-- Main Content -->
-    <div class="main-content">
+    <div class="container">
         <h1>Whitelist Management</h1>
+        <input type="text" id="username" placeholder="Enter username" class="form-control">
+        <button id="addButton" class="btn btn-primary">Add to Whitelist</button>
+        <button id="resetButton" class="btn btn-danger">Reset Whitelist</button>
+        <button id="downloadButton" class="btn btn-success">Download Whitelist</button>
 
-        <div class="form-group">
-            <label for="username">Enter Username:</label>
-            <input type="text" id="username" class="form-control" placeholder="Username">
-        </div>
-
-        <button class="btn btn-primary mt-3" id="addButton">Add to Whitelist</button>
-        <button class="btn reset-button mt-3" id="resetButton">Reset Whitelist</button>
-        <button class="btn btn-success mt-3" id="downloadButton">Download Whitelist</button>
-        <button class="btn btn-warning mt-3" id="combineButton">Download Combined File</button>
-
-        <h3 class="mt-4">Current Whitelist:</h3>
-        <pre id="whitelistOutput"></pre>
+        <h2>Current Whitelisted Users</h2>
+        <ul id="whitelistUsers" class="list-group"></ul>
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const whitelistUrl = 'https://akadm1n.github.io/whitelist.json'; // Your hosted JSON file URL
-        const defaultWhitelist = [
-            "coolroblox123rock",
-            "Alikhammas1234",
-            "Mohii012",
-            "BroImTiredOfgames",
-            // Add any other default users if necessary
-        ];
+        const whitelistUsers = document.getElementById('whitelistUsers');
+        const usernameInput = document.getElementById('username');
 
-        let whitelist = [];
-
-        // Function to fetch the whitelist from the server
-        async function fetchWhitelist() {
-            try {
-                const response = await fetch(whitelistUrl);
-                const data = await response.json();
-                whitelist = data.whitelisted || [];
-                updateWhitelistDisplay();
-            } catch (error) {
-                console.error('Error fetching the whitelist:', error);
-                alert('Failed to fetch the whitelist.');
-            }
-        }
-
-        // Function to update the displayed whitelist
-        function updateWhitelistDisplay() {
-            document.getElementById("whitelistOutput").innerText = JSON.stringify(whitelist, null, 2);
-        }
-
-        // Initial fetch
-        fetchWhitelist();
-
-        // Add button event listener
-        document.getElementById("addButton").addEventListener("click", async function() {
-            const username = document.getElementById("username").value.trim();
-            if (username && !whitelist.includes(username)) {
-                whitelist.push(username);
-                await updateWhitelistOnServer();
-                updateWhitelistDisplay();
-                document.getElementById("username").value = ""; // Clear input
-            } else {
-                alert("Username is either empty or already whitelisted.");
-            }
-        });
-
-        // Reset button event listener
-        document.getElementById("resetButton").addEventListener("click", async function() {
-            whitelist = [...defaultWhitelist]; // Reset to default whitelist
-            await updateWhitelistOnServer();
-            updateWhitelistDisplay();
-        });
-
-        // Function to update the whitelist on the server
-        async function updateWhitelistOnServer() {
-            try {
-                await fetch(whitelistUrl, {
-                    method: 'PUT', // Change to appropriate method for your backend
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ whitelisted: whitelist })
+        // Fetch the whitelist from the Node.js server
+        fetch('https://YOUR_REPLIT_URL/whitelist')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(user => {
+                    const li = document.createElement('li');
+                    li.textContent = user;
+                    whitelistUsers.appendChild(li);
                 });
-            } catch (error) {
-                console.error('Error updating the whitelist on server:', error);
-                alert('Failed to update the whitelist.');
+            });
+
+        // Add username to whitelist
+        document.getElementById('addButton').onclick = () => {
+            const username = usernameInput.value.trim();
+            if (username) {
+                fetch('https://YOUR_REPLIT_URL/whitelist', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        const li = document.createElement('li');
+                        li.textContent = username;
+                        whitelistUsers.appendChild(li);
+                        usernameInput.value = '';
+                    } else {
+                        alert('Failed to add user to whitelist');
+                    }
+                });
             }
-        }
+        };
 
-        // Download button event listener
-        document.getElementById("downloadButton").addEventListener("click", function() {
-            const blob = new Blob([`local whitelistedPlayers = {\n${whitelist.map(username => `    "${username}",`).join("\n")}\n}`], { type: 'text/plain' });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = "whitelistedPlayers.txt";
-            link.click();
-        });
+        // Reset the whitelist
+        document.getElementById('resetButton').onclick = () => {
+            fetch('https://YOUR_REPLIT_URL/whitelist', {
+                method: 'DELETE',
+            })
+            .then(response => {
+                if (response.ok) {
+                    whitelistUsers.innerHTML = ''; // Clear the list
+                    alert('Whitelist has been reset');
+                } else {
+                    alert('Failed to reset whitelist');
+                }
+            });
+        };
 
-        // Combine button event listener
-        document.getElementById("combineButton").addEventListener("click", async function() {
-            try {
-                // Fetch the existing content from the new text file
-                const response = await fetch('https://cdn.discordapp.com/attachments/781966227157286924/1290482994531799070/combinedFile.txt?ex=66fc9f71&is=66fb4df1&hm=ba5162ecf6031e9fb5bbef5f7947a2f234e198f4b04dd6d81d6f45935c960b85&');
-                const existingContent = await response.text();
-
-                // Create the new content
-                const combinedContent = `local whitelistedPlayers = {\n${whitelist.map(username => `    "${username}",`).join("\n")}\n}\n\n${existingContent}`;
-
-                // Create a Blob and download
-                const blob = new Blob([combinedContent], { type: 'text/plain' });
-                const link = document.createElement("a");
-                link.href = URL.createObjectURL(blob);
-                link.download = "combinedFile.txt";
-                link.click();
-            } catch (error) {
-                console.error('Error fetching the file:', error);
-                alert('Failed to download combined file.');
-            }
-        });
+        // Download whitelist as a Lua table
+        document.getElementById('downloadButton').onclick = () => {
+            fetch('https://YOUR_REPLIT_URL/whitelist')
+                .then(response => response.json())
+                .then(users => {
+                    const luaContent = `local whitelistedPlayers = {\n${users.map(user => `  "${user}",`).join('\n')}\n}`;
+                    const blob = new Blob([luaContent], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'whitelistedPlayers.lua';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                });
+        };
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
