@@ -117,4 +117,21 @@
             const whitelistResponse = await fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist');
             const users = await whitelistResponse.json();
 
-            // Create
+            // Create new combined content
+            const combinedContent = existingContent + '\n' + users.map(user => `  "${user}",`).join('\n');
+
+            // Download combined content as a text file
+            const blob = new Blob([combinedContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'combinedDownload.txt'; // The name of the downloaded file
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        };
+    </script>
+</body>
+
+</html>
