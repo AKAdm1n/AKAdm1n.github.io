@@ -26,6 +26,12 @@
             padding: 20px;
             border-radius: 10px;
             max-width: 800px;
+            transition: transform 0.3s ease; /* Smooth transition for scaling */
+            z-index: 1; /* Ensure content is on top */
+        }
+
+        .content:hover {
+            transform: scale(0.95); /* Scale down on hover for pressing effect */
         }
 
         h1 {
