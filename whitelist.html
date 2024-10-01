@@ -78,34 +78,35 @@
             }
         };
 
-        // Remove username from whitelist
-        document.getElementById('removeButton').onclick = () => {
-            const username = usernameInput.value.trim();
-            if (username) {
-                fetch(baseURL, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username })
-                })
-                .then(response => {
-                    if (response.ok) {
-                        const li = Array.from(whitelistUsers.children).find(item => item.textContent === username);
-                        if (li) {
-                            whitelistUsers.removeChild(li);
-                        }
-                        usernameInput.value = '';
-                    } else {
-                        alert('Failed to remove user from whitelist');
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                    alert('Error removing user: ' + error.message);
-                });
+         // Remove username from whitelist
+document.getElementById('removeButton').onclick = () => {
+    const username = usernameInput.value.trim();
+    if (username) {
+        fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username }) // Include username in body
+        })
+        .then(response => {
+            if (response.ok) {
+                const li = Array.from(whitelistUsers.children).find(item => item.textContent === username);
+                if (li) {
+                    whitelistUsers.removeChild(li); // Remove user from the displayed list
+                }
+                usernameInput.value = ''; // Clear input
+            } else {
+                alert('Failed to remove user from whitelist: ' + response.statusText);
             }
-        };
+        })
+        .catch(error => {
+            console.error('Error removing user:', error); // Log error for debugging
+            alert('Error removing user: ' + error.message);
+        });
+    }
+};
+
 
         // Download whitelist as a Lua table
         document.getElementById('downloadButton').onclick = () => {
