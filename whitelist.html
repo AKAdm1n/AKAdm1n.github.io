@@ -26,15 +26,20 @@
         const usernameInput = document.getElementById('username');
 
         // Fetch the whitelist from the Node.js server
-        fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist')
-            .then(response => response.json())
-            .then(data => {
-                data.forEach(user => {
-                    const li = document.createElement('li');
-                    li.textContent = user;
-                    whitelistUsers.appendChild(li);
+        const fetchWhitelist = () => {
+            fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist')
+                .then(response => response.json())
+                .then(data => {
+                    whitelistUsers.innerHTML = ''; // Clear the list first
+                    data.forEach(user => {
+                        const li = document.createElement('li');
+                        li.textContent = user;
+                        whitelistUsers.appendChild(li);
+                    });
                 });
-            });
+        };
+
+        fetchWhitelist(); // Initial fetch to load existing users
 
         // Add username to whitelist
         document.getElementById('addButton').onclick = () => {
