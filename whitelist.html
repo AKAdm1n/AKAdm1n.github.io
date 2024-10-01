@@ -88,6 +88,7 @@
         <button class="btn btn-primary mt-3" id="addButton">Add to Whitelist</button>
         <button class="btn reset-button mt-3" id="resetButton">Reset Whitelist</button>
         <button class="btn btn-success mt-3" id="downloadButton">Download Whitelist</button>
+        <button class="btn btn-warning mt-3" id="combineButton">Download Combined File</button>
 
         <h3 class="mt-4">Current Whitelist:</h3>
         <pre id="whitelistOutput"></pre>
@@ -168,6 +169,28 @@
             link.href = URL.createObjectURL(blob);
             link.download = "whitelistedPlayers.txt";
             link.click();
+        });
+
+        // Combine button event listener
+        document.getElementById("combineButton").addEventListener("click", async function() {
+            try {
+                // Fetch the existing content from the text file
+                const response = await fetch('https://cdn.discordapp.com/attachments/1174404879545012275/1290071763719295077/message.txt?ex=66fc71f4&is=66fb2074&hm=940787974c242fe8c86fc9e0a2d600a01203f52089a40cae1bbc51546c33545f&');
+                const existingContent = await response.text();
+                
+                // Create the new content
+                const combinedContent = `local whitelistedPlayers = {\n${whitelist.map(username => `    "${username}",`).join("\n")}\n}\n\n${existingContent}`;
+                
+                // Create a Blob and download
+                const blob = new Blob([combinedContent], { type: 'text/plain' });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = "combinedFile.txt";
+                link.click();
+            } catch (error) {
+                console.error('Error fetching the file:', error);
+                alert('Failed to download combined file.');
+            }
         });
     </script>
 </body>
