@@ -45,23 +45,35 @@
         document.getElementById('addButton').onclick = () => {
             const username = usernameInput.value.trim();
             if (username) {
-                fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username })
-                })
-                .then(response => {
-                    if (response.ok) {
-                        const li = document.createElement('li');
-                        li.textContent = username;
-                        whitelistUsers.appendChild(li);
-                        usernameInput.value = '';
-                    } else {
-                        alert('Failed to add user to whitelist');
-                    }
-                });
+                fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist')
+                    .then(response => response.json())
+                    .then(users => {
+                        // Check if user already exists
+                        if (users.includes(username)) {
+                            alert('User is already in the whitelist.');
+                        } else {
+                            // If user doesn't exist, add to the whitelist
+                            users.push(username);
+                            // Send the updated list back to the server
+                            fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist', {
+                                method: 'PUT', // Use PUT to update the existing whitelist
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(users)
+                            })
+                            .then(response => {
+                                if (response.ok) {
+                                    const li = document.createElement('li');
+                                    li.textContent = username;
+                                    whitelistUsers.appendChild(li);
+                                    usernameInput.value = '';
+                                } else {
+                                    alert('Failed to update whitelist');
+                                }
+                            });
+                        }
+                    });
             }
         };
 
