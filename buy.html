@@ -11,6 +11,7 @@
             padding: 0;
             height: 100vh;
             display: flex;
+            flex-direction: column; /* Stack content vertically */
             justify-content: center;
             align-items: center;
             font-family: Arial, sans-serif;
@@ -27,6 +28,7 @@
             border-radius: 10px; /* Rounded corners */
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Initial shadow */
             display: inline-block; /* Ensure proper width */
+            margin-bottom: 20px; /* Space between the two wrappers */
         }
 
         .content {
@@ -62,6 +64,24 @@
         .buy-button:hover {
             box-shadow: 0 0 20px rgba(40, 167, 69, 0.7); /* Glow effect on hover */
         }
+
+        .prices-button {
+            margin-top: 10px; /* Space between buttons */
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #007bff; /* Blue color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease; /* Smooth transition for shadow */
+            text-decoration: none; /* Remove underline from link */
+            display: inline-block; /* Ensure button-like behavior */
+        }
+
+        .prices-button:hover {
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.7); /* Glow effect on hover */
+        }
     </style>
 </head>
 <body>
@@ -73,12 +93,12 @@
         </div>
     </div>
 
-        <div class="wrapper">
-        <div class="buybutton" id="buybtn">
-
-            <p>Click below to join an buy the AK ADMIN Script!</p>
+    <div class="wrapper">
+        <div class="content">
+            <p>Click below to buy the AK ADMIN Script!</p>
             <p>Or click the prices button to view our prices!</p>
-             <a href="https://discord.gg/bzRByg7xUw" target="_blank" class="buy-button">Buy AK Admin</a>
+            <a href="https://discord.gg/bzRByg7xUw" target="_blank" class="buy-button">Buy AK Admin</a>
+            <a href="https://akadm1n.github.io/prices.html" target="_blank" class="prices-button">View Prices</a> <!-- New Prices Button -->
         </div>
     </div>
 
