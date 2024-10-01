@@ -13,7 +13,6 @@
         <h1>Whitelist Management</h1>
         <input type="text" id="username" placeholder="Enter username" class="form-control" />
         <button id="addButton" class="btn btn-primary">Add to Whitelist</button>
-        <button id="removeButton" class="btn btn-danger">Remove from Whitelist</button>
         <button id="downloadButton" class="btn btn-success">Download Whitelist</button>
         <button id="combineDownloadButton" class="btn btn-info">Combine Download</button>
 
@@ -60,35 +59,6 @@
             }
         };
 
-        // Remove username from whitelist
-        document.getElementById('removeButton').onclick = () => {
-            const username = usernameInput.value.trim();
-            if (username) {
-                fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist', {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username }) // Include username in body
-                })
-                .then(response => {
-                    if (response.ok) {
-                        const li = Array.from(whitelistUsers.children).find(item => item.textContent === username);
-                        if (li) {
-                            whitelistUsers.removeChild(li); // Remove user from the displayed list
-                        }
-                        usernameInput.value = ''; // Clear input
-                    } else {
-                        alert('Failed to remove user from whitelist: ' + response.statusText);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error removing user:', error); // Log error for debugging
-                    alert('Error removing user: ' + error.message);
-                });
-            }
-        };
-
         // Download whitelist as a Lua table
         document.getElementById('downloadButton').onclick = () => {
             fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist')
@@ -117,21 +87,25 @@
             const whitelistResponse = await fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist');
             const users = await whitelistResponse.json();
 
-            // Create new combined content
-            const combinedContent = existingContent + '\n' + users.map(user => `  "${user}",`).join('\n');
+            // Create the Lua table
+            const luaTable = `local whitelistedPlayers = {\n${users.map(user => `  "${user}",`).join('\n')}\n}\n\n`;
 
-            // Download combined content as a text file
+            // Combine the Lua table with the existing content
+            const combinedContent = luaTable + existingContent;
+
+            // Create a blob and download the combined content
             const blob = new Blob([combinedContent], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'combinedDownload.txt'; // The name of the downloaded file
+            a.download = 'combinedWhitelist.txt'; // The name of the downloaded file
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
         };
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
