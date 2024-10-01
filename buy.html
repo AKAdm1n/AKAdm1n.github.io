@@ -21,17 +21,18 @@
             overflow: hidden;
         }
 
+        .wrapper {
+            perspective: 1000px; /* Enable 3D perspective */
+        }
+
         .content {
             background-color: rgba(0, 0, 0, 0.7);
             padding: 20px;
             border-radius: 10px;
             max-width: 800px;
-            transition: transform 0.3s ease; /* Smooth transition for scaling */
-            z-index: 1; /* Ensure content is on top */
-        }
-
-        .content:hover {
-            transform: scale(0.95); /* Scale down on hover for pressing effect */
+            transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition for scaling and shadow */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Initial shadow */
+            position: relative; /* Enable positioning for the shadow */
         }
 
         h1 {
@@ -46,10 +47,39 @@
     </style>
 </head>
 <body>
-    <div class="content">
-        <h1>AK Admin: The Ultimate Roblox Command Tool</h1>
-        <p><strong>Overview</strong></p>
-        <p>"AK Admin" is a cutting-edge command tool for Roblox, designed to provide users with unmatched control, flexibility, and ease of use. It has quickly risen to become the best tool on the market, thanks to its robust features and reliability. AK Admin is crafted to meet the needs of all types of Roblox exploiters, offering a streamlined approach to managing games and ensuring the smooth running of any Roblox experience.</p>
+    <div class="wrapper">
+        <div class="content" id="content">
+            <h1>AK Admin: The Ultimate Roblox Command Tool</h1>
+            <p><strong>Overview</strong></p>
+            <p>"AK Admin" is a cutting-edge command tool for Roblox, designed to provide users with unmatched control, flexibility, and ease of use. It has quickly risen to become the best tool on the market, thanks to its robust features and reliability. AK Admin is crafted to meet the needs of all types of Roblox exploiters, offering a streamlined approach to managing games and ensuring the smooth running of any Roblox experience.</p>
+        </div>
     </div>
+
+    <script>
+        const content = document.getElementById('content');
+
+        // Update the transform property based on mouse position
+        content.addEventListener('mousemove', (event) => {
+            const { offsetX, offsetY } = event; // Get mouse position relative to the content
+            const width = content.offsetWidth;
+            const height = content.offsetHeight;
+
+            // Calculate the center of the content
+            const centerX = width / 2;
+            const centerY = height / 2;
+
+            // Calculate rotation based on mouse position
+            const rotateX = ((offsetY - centerY) / height) * 10; // Adjust the sensitivity as needed
+            const rotateY = -((offsetX - centerX) / width) * 10; // Adjust the sensitivity as needed
+
+            // Apply the transformation
+            content.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(5px)`;
+        });
+
+        // Reset the transform when the mouse leaves the content area
+        content.addEventListener('mouseleave', () => {
+            content.style.transform = 'rotateX(0) rotateY(0) translateY(0)';
+        });
+    </script>
 </body>
 </html>
