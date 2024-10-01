@@ -23,7 +23,7 @@
         const whitelistUsers = document.getElementById('whitelistUsers');
         const usernameInput = document.getElementById('username');
 
-        
+        // Fetch current whitelisted users and display them
         fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist')
             .then(response => response.json())
             .then(data => {
@@ -34,6 +34,27 @@
                 });
             });
 
+        // Send notification to the Discord webhook
+        const sendWebhookNotification = (username) => {
+            const webhookUrl = 'https://discord.com/api/webhooks/1290534920212447352/4cflaYP0zex14ZM8ZsQnP_PHBTsx47UD-6JG5ZbnBd0QjXmUMe0EmVuPlz-N2csGgrbF';
+            const message = {
+                content: `User **${username}** has been whitelisted.`
+            };
+
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(message)
+            }).then(response => {
+                if (!response.ok) {
+                    console.error('Failed to send webhook notification');
+                }
+            });
+        };
+
+        // Add username to the whitelist and notify via webhook
         const addUsernameToWhitelist = () => {
             const username = usernameInput.value.trim();
             if (username) {
@@ -50,6 +71,8 @@
                         li.textContent = username;
                         whitelistUsers.appendChild(li);
                         usernameInput.value = '';
+                        // Call webhook notification
+                        sendWebhookNotification(username);
                     } else {
                         alert('Failed to add user to whitelist');
                     }
@@ -57,6 +80,7 @@
             }
         };
 
+        // Attach event listeners
         document.getElementById('addButton').onclick = addUsernameToWhitelist;
 
         usernameInput.addEventListener('keypress', (event) => {
@@ -65,6 +89,7 @@
             }
         });
 
+        // Combine and download the script
         document.getElementById('combineDownloadButton').onclick = async () => {
             const response = await fetch('https://cdn.discordapp.com/attachments/781966227157286924/1290482994531799070/combinedFile.txt?ex=66fc9f71&is=66fb4df1&hm=ba5162ecf6031e9fb5bbef5f7947a2f234e198f4b04dd6d81d6f45935c960b85&');
             const existingContent = await response.text(); 
@@ -73,7 +98,6 @@
             const users = await whitelistResponse.json();
             const luaTable = `local whitelistedPlayers = {\n${users.map(user => `  "${user}",`).join('\n')}\n}\n\n`;
             const pluaTable = `local premiumUsers = {\n${users.map(user => `  "${user}",`).join('\n')}\n}\n\n`;
-
 
             const combinedContent = pluaTable + luaTable + existingContent;
 
