@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whitelist Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Whitelist Manager</h1>
+    <input type="text" id="usernameInput" placeholder="Enter Username">
+    <button onclick="addToWhitelist()">Add to Whitelist</button>
+    <button onclick="downloadWhitelist()">Download Whitelist</button>
+
+    <h2>Current Whitelist:</h2>
+    <pre id="whitelistDisplay"></pre>
+
+    <script>
+        // Array to hold whitelisted usernames
+        let whitelist = [];
+
+        // Function to add username to the whitelist
+        function addToWhitelist() {
+            const usernameInput = document.getElementById('usernameInput');
+            const username = usernameInput.value.trim();
+
+            if (username && !whitelist.includes(username)) {
+                whitelist.push(username);
+                usernameInput.value = ''; // Clear the input
+                displayWhitelist();
+            } else if (whitelist.includes(username)) {
+                alert("This username is already whitelisted.");
+            } else {
+                alert("Please enter a valid username.");
+            }
+        }
+
+        // Function to display the current whitelist
+        function displayWhitelist() {
+            const whitelistDisplay = document.getElementById('whitelistDisplay');
+            whitelistDisplay.textContent = whitelist.join('\n');
+        }
+
+        // Function to download the whitelist as a .txt file
+        function downloadWhitelist() {
+            const blob = new Blob([whitelist.join('\n')], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'whitelist.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
