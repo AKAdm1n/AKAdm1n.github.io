@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Whitelist - AK Admin</title>
+    <title>AK Admin Whitelist</title>
     
     <!-- Bootstrap CSS (for responsive layout) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -29,17 +29,37 @@
             color: #ddd;
         }
 
+        .sidebar {
+            height: 100vh;
+            background-color: #343a40;
+            padding-top: 20px;
+            position: fixed;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #ddd;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background-color: #495057;
+            color: #fff;
+        }
+
         .main-content {
             margin-left: 250px;
             padding: 20px;
         }
 
-        /* Additional styling for buttons */
-        #resetButton {
-            margin-top: 20px; /* Spacing above the button */
+        .card {
+            margin-top: 20px;
         }
-        #downloadButton {
-            margin-top: 20px; /* Spacing above the button */
+
+        .reset-button {
+            background-color: #dc3545; /* Bootstrap's red color */
+            color: white;
         }
     </style>
 </head>
@@ -47,87 +67,58 @@
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#">AK Admin</a>
+        <a class="navbar-brand" href="https://akadm1n.github.io/">AK Admin</a>
     </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="index.html">Dashboard</a>
+        <a href="#">Whitelist</a> <!-- Current page -->
+    </div>
 
     <!-- Main Content -->
     <div class="main-content">
-        <h1>Whitelist</h1>
-        <div class="mb-3">
-            <label for="usernameInput" class="form-label">Enter Username:</label>
-            <input type="text" id="usernameInput" class="form-control" placeholder="Username">
-            <button id="addButton" class="btn btn-primary mt-2">Add to Whitelist</button>
+        <h1>Whitelist Management</h1>
+        
+        <div class="form-group">
+            <label for="username">Enter Username:</label>
+            <input type="text" id="username" class="form-control" placeholder="Username">
         </div>
-        
-        <h2>Current Whitelist:</h2>
-        <ul id="whitelist" class="list-group"></ul>
 
-        <!-- Reset Button -->
-        <button id="resetButton" class="btn btn-danger">Reset Whitelist</button>
-        
-        <!-- Download Button -->
-        <button id="downloadButton" class="btn btn-success">Download Whitelist</button>
+        <button class="btn btn-primary mt-3" id="addButton">Add to Whitelist</button>
+        <button class="btn reset-button mt-3" id="resetButton">Reset Whitelist</button>
+        <button class="btn btn-success mt-3" id="downloadButton">Download Whitelist</button>
+
+        <h3 class="mt-4">Current Whitelist:</h3>
+        <pre id="whitelistOutput"></pre>
     </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- JavaScript for Whitelist Functionality -->
     <script>
-        // Function to load the whitelist from localStorage
-        function loadWhitelist() {
-            const whitelist = JSON.parse(localStorage.getItem('whitelist')) || [];
-            const whitelistElement = document.getElementById('whitelist');
-            whitelistElement.innerHTML = ''; // Clear the current list
+        let whitelist = [];
 
-            whitelist.forEach(username => {
-                const li = document.createElement('li');
-                li.className = 'list-group-item';
-                li.textContent = username;
-                whitelistElement.appendChild(li);
-            });
-        }
-
-        // Function to save the whitelist to localStorage
-        function saveWhitelist(whitelist) {
-            localStorage.setItem('whitelist', JSON.stringify(whitelist));
-            loadWhitelist(); // Reload the displayed whitelist
-        }
-
-        // Add button functionality
-        document.getElementById('addButton').onclick = function() {
-            const usernameInput = document.getElementById('usernameInput');
-            const username = usernameInput.value.trim();
-
-            if (username) {
-                const whitelist = JSON.parse(localStorage.getItem('whitelist')) || [];
-                if (!whitelist.includes(username)) {
-                    whitelist.push(username);
-                    saveWhitelist(whitelist);
-                }
-                usernameInput.value = ''; // Clear input field
+        document.getElementById("addButton").addEventListener("click", function() {
+            const username = document.getElementById("username").value.trim();
+            if (username && !whitelist.includes(username)) {
+                whitelist.push(username);
+                document.getElementById("whitelistOutput").innerText = JSON.stringify(whitelist, null, 2);
+                document.getElementById("username").value = ""; // Clear input
             }
-        };
+        });
 
-        // Reset button functionality
-        document.getElementById('resetButton').onclick = function() {
-            localStorage.removeItem('whitelist');
-            loadWhitelist();
-        };
+        document.getElementById("resetButton").addEventListener("click", function() {
+            whitelist = [];
+            document.getElementById("whitelistOutput").innerText = "";
+        });
 
-        // Download button functionality
-        document.getElementById('downloadButton').onclick = function() {
-            const whitelist = JSON.parse(localStorage.getItem('whitelist')) || [];
-            const luaTable = `whitelistedPlayers = {\n` + whitelist.map(name => `    "${name}",`).join('\n') + `\n}`;
-            const blob = new Blob([luaTable], { type: 'text/plain' });
-            const link = document.createElement('a');
+        document.getElementById("downloadButton").addEventListener("click", function() {
+            const blob = new Blob([`local whitelistedPlayers = {\n${whitelist.map(username => `    "${username}",`).join("\n")}\n}`], { type: 'text/plain' });
+            const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.download = 'whitelist.txt';
+            link.download = "whitelistedPlayers.txt";
             link.click();
-        };
-
-        // Load the whitelist on page load
-        loadWhitelist();
+        });
     </script>
 </body>
 
