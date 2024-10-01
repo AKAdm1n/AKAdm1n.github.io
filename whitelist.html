@@ -16,7 +16,7 @@
         <button id="removeButton" class="btn btn-warning">Remove from Whitelist</button> <!-- New Remove Button -->
         <button id="resetButton" class="btn btn-danger">Reset Whitelist</button>
         <button id="downloadButton" class="btn btn-success">Download Whitelist</button>
-        <button id="combineDownloadButton" class="btn btn-info">Combine Download</button> <!-- Combine Download Button -->
+        <button id="combineDownloadButton" class="btn btn-info">Combine Download</button>
 
         <h2>Current Whitelisted Users</h2>
         <ul id="whitelistUsers" class="list-group"></ul>
@@ -33,6 +33,7 @@
                 data.forEach(user => {
                     const li = document.createElement('li');
                     li.textContent = user;
+                    li.className = 'list-group-item d-flex justify-content-between align-items-center'; // Bootstrap styling
                     whitelistUsers.appendChild(li);
                 });
             });
@@ -52,6 +53,7 @@
                     if (response.ok) {
                         const li = document.createElement('li');
                         li.textContent = username;
+                        li.className = 'list-group-item d-flex justify-content-between align-items-center';
                         whitelistUsers.appendChild(li);
                         usernameInput.value = '';
                     } else {
@@ -89,7 +91,7 @@
 
         // Reset the whitelist
         document.getElementById('resetButton').onclick = () => {
-            fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist/reset', {
+            fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist', {
                 method: 'DELETE',
             })
             .then(response => {
