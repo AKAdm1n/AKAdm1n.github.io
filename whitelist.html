@@ -96,8 +96,44 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Load the whitelist from localStorage on page load
-        let whitelist = JSON.parse(localStorage.getItem("whitelist")) || [];
+        // Default whitelist usernames
+        const defaultWhitelist = [
+            "coolroblox123rock",
+            "Alikhammas1234",
+            "Mohii012",
+            "BroImTiredOfgames",
+            "miczilla14",
+            "ar3aontop2",
+            "amiay1337",
+            "AK_ADMEN1",
+            "Juluen_banane",
+            "6736_45",
+            "linkster66",
+            "dgthgcnfhhbsd",
+            "Tnk_Him",
+            "TheRealestOnHere",
+            "328ml",
+            "victorwielki",
+            "AliKhammas",
+            "GYATT_DAMN1",
+            "CanExploiOnMobileLol",
+            "rb0zo",
+            "CokeYTXD",
+            "SheilaBrowning4",
+            "Doritosman2437",
+            "Legalfruad",
+            "rustz7",
+            "6angelzzzz",
+            "bacon_noobyk",
+            "mohii03",
+            "Yasinapel3",
+            "urtcyrcjctyjjtcycrjy",
+            "Shshisnishusgvgsugs",
+            "ichbinabudi1070",
+        ];
+
+        // Load the whitelist from localStorage or set to default if not present
+        let whitelist = JSON.parse(localStorage.getItem("whitelist")) || [...defaultWhitelist];
 
         // Function to update the displayed whitelist
         function updateWhitelistDisplay() {
@@ -120,8 +156,8 @@
 
         // Reset button event listener
         document.getElementById("resetButton").addEventListener("click", function() {
-            whitelist = [];
-            localStorage.removeItem("whitelist"); // Clear from localStorage
+            whitelist = [...defaultWhitelist]; // Reset to default whitelist
+            localStorage.setItem("whitelist", JSON.stringify(whitelist)); // Save to localStorage
             updateWhitelistDisplay();
         });
 
