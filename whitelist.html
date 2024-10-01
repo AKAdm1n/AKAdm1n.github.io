@@ -10,16 +10,53 @@
 
 <body>
     <div class="container">
-        <h1>Whitelist Management</h1>
-        <input type="text" id="username" placeholder="Enter username" class="form-control" />
-        <button id="addButton" class="btn btn-primary">Add to Whitelist</button>
-        <button id="combineDownloadButton" class="btn btn-success">Download Script</button>
+        <!-- Login Form -->
+        <div id="loginForm">
+            <h2>Login</h2>
+            <input type="text" id="loginUsername" placeholder="Enter username" class="form-control mb-2" />
+            <input type="password" id="loginPassword" placeholder="Enter password" class="form-control mb-2" />
+            <button id="loginButton" class="btn btn-primary">Login</button>
+            <p id="loginError" class="text-danger mt-2" style="display: none;">Invalid username or password</p>
+        </div>
 
-        <h2>Current Whitelisted Users</h2>
-        <ul id="whitelistUsers" class="list-group"></ul>
+        <!-- Whitelist Management Section -->
+        <div id="whitelistManagement" style="display: none;">
+            <h1>Whitelist Management</h1>
+            <input type="text" id="username" placeholder="Enter username" class="form-control mb-2" />
+            <button id="addButton" class="btn btn-primary">Add to Whitelist</button>
+            <button id="combineDownloadButton" class="btn btn-success">Download Script</button>
+
+            <h2>Current Whitelisted Users</h2>
+            <ul id="whitelistUsers" class="list-group"></ul>
+        </div>
     </div>
 
     <script>
+        const loginButton = document.getElementById('loginButton');
+        const loginUsername = document.getElementById('loginUsername');
+        const loginPassword = document.getElementById('loginPassword');
+        const loginError = document.getElementById('loginError');
+        const loginForm = document.getElementById('loginForm');
+        const whitelistManagement = document.getElementById('whitelistManagement');
+
+        // Hardcoded login credentials
+        const correctUsername = "admin";
+        const correctPassword = "lunda";
+
+        // Login validation
+        loginButton.onclick = function () {
+            const username = loginUsername.value.trim();
+            const password = loginPassword.value.trim();
+
+            if (username === correctUsername && password === correctPassword) {
+                loginForm.style.display = "none"; // Hide login form
+                whitelistManagement.style.display = "block"; // Show whitelist management section
+            } else {
+                loginError.style.display = "block"; // Show error message
+            }
+        };
+
+        // Whitelist management script (no changes here)
         const whitelistUsers = document.getElementById('whitelistUsers');
         const usernameInput = document.getElementById('username');
 
