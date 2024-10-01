@@ -1,156 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- Add this part in your existing whitelist.html -->
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whitelist Management</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+<button id="removeButton" class="btn btn-warning">Remove from Whitelist</button> <!-- New Remove Button -->
 
-<body>
-    <div class="container">
-        <h1>Whitelist Management</h1>
-        <input type="text" id="username" placeholder="Enter username" class="form-control" />
-        <button id="addButton" class="btn btn-primary">Add to Whitelist</button>
-        <button id="removeButton" class="btn btn-warning">Remove from Whitelist</button> <!-- New Remove Button -->
-        <button id="resetButton" class="btn btn-danger">Reset Whitelist</button>
-        <button id="downloadButton" class="btn btn-success">Download Whitelist</button>
-        <button id="combineDownloadButton" class="btn btn-info">Combine Download</button>
+<script>
+    // Other code remains the same
 
-        <h2>Current Whitelisted Users</h2>
-        <ul id="whitelistUsers" class="list-group"></ul>
-    </div>
-
-    <script>
-        const whitelistUsers = document.getElementById('whitelistUsers');
-        const usernameInput = document.getElementById('username');
-
-        // Fetch the whitelist from the Node.js server
-        fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist')
-            .then(response => response.json())
-            .then(data => {
-                data.forEach(user => {
-                    const li = document.createElement('li');
-                    li.textContent = user;
-                    li.className = 'list-group-item d-flex justify-content-between align-items-center'; // Bootstrap styling
-                    whitelistUsers.appendChild(li);
-                });
-            });
-
-        // Add username to whitelist
-        document.getElementById('addButton').onclick = () => {
-            const username = usernameInput.value.trim();
-            if (username) {
-                fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username })
-                })
-                .then(response => {
-                    if (response.ok) {
-                        const li = document.createElement('li');
-                        li.textContent = username;
-                        li.className = 'list-group-item d-flex justify-content-between align-items-center';
-                        whitelistUsers.appendChild(li);
-                        usernameInput.value = '';
-                    } else {
-                        alert('Failed to add user to whitelist');
-                    }
-                });
-            }
-        };
-
-        // Remove username from whitelist
-        document.getElementById('removeButton').onclick = () => {
-            const username = usernameInput.value.trim();
-            if (username) {
-                fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist', {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username })
-                })
-                .then(response => {
-                    if (response.ok) {
-                        const items = Array.from(whitelistUsers.getElementsByTagName('li'));
-                        const userItem = items.find(li => li.textContent === username);
-                        if (userItem) {
-                            whitelistUsers.removeChild(userItem);
-                        }
-                        usernameInput.value = '';
-                    } else {
-                        alert('Failed to remove user from whitelist');
-                    }
-                });
-            }
-        };
-
-        // Reset the whitelist
-        document.getElementById('resetButton').onclick = () => {
+    // Remove username from whitelist
+    document.getElementById('removeButton').onclick = () => {
+        const username = usernameInput.value.trim();
+        if (username) {
             fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist', {
                 method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username })
             })
             .then(response => {
                 if (response.ok) {
-                    whitelistUsers.innerHTML = ''; // Clear the list
-                    alert('Whitelist has been reset');
+                    const items = Array.from(whitelistUsers.getElementsByTagName('li'));
+                    const userItem = items.find(li => li.textContent === username);
+                    if (userItem) {
+                        whitelistUsers.removeChild(userItem);
+                    }
+                    usernameInput.value = '';
                 } else {
-                    alert('Failed to reset whitelist');
+                    alert('Failed to remove user from whitelist');
                 }
             });
-        };
+        }
+    };
 
-        // Download whitelist as a Lua table
-        document.getElementById('downloadButton').onclick = () => {
-            fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist')
-                .then(response => response.json())
-                .then(users => {
-                    const luaContent = `local whitelistedPlayers = {\n${users.map(user => `  "${user}",`).join('\n')}\n}`; // Create Lua content
-                    const blob = new Blob([luaContent], { type: 'text/plain' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'whitelistedPlayers.txt'; // The name of the downloaded file
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                });
-        };
-
-        // Combine Download button
-        document.getElementById('combineDownloadButton').onclick = async () => {
-            // Fetch the existing content from the specified URL
-            const response = await fetch('https://cdn.discordapp.com/attachments/781966227157286924/1290482994531799070/combinedFile.txt?ex=66fc9f71&is=66fb4df1&hm=ba5162ecf6031e9fb5bbef5f7947a2f234e198f4b04dd6d81d6f45935c960b85&');
-            const existingContent = await response.text(); // Get the text of the existing content
-
-            // Fetch the current whitelist
-            const whitelistResponse = await fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist');
-            const users = await whitelistResponse.json();
-
-            // Create the Lua table
-            const luaTable = `local whitelistedPlayers = {\n${users.map(user => `  "${user}",`).join('\n')}\n}\n\n`;
-
-            // Combine the Lua table with the existing content
-            const combinedContent = luaTable + existingContent;
-
-            // Create a blob and download the combined content
-            const blob = new Blob([combinedContent], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'combinedWhitelist.txt'; // The name of the downloaded file
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        };
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+    // Other code remains the same
+</script>
