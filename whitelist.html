@@ -1,81 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whitelist Manager</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Whitelist - AK Admin</title>
+    
+    <!-- Bootstrap CSS (for responsive layout) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #343a40;
+        }
+
+        .navbar-brand {
+            color: #fff;
+        }
+
+        .navbar-brand:hover {
+            color: #ddd;
+        }
+
+        .main-content {
+            margin-left: 250px;
             padding: 20px;
-            background-color: #f4f4f4;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        input[type="text"] {
-            padding: 10px;
-            width: 300px;
-            margin-right: 10px;
-        }
-        button {
-            padding: 10px 15px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: #218838;
         }
     </style>
 </head>
+
 <body>
-    <h1>Whitelist Manager</h1>
-    <input type="text" id="usernameInput" placeholder="Enter Username">
-    <button onclick="addToWhitelist()">Add to Whitelist</button>
-    <button onclick="downloadWhitelist()">Download Whitelist</button>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">AK Admin</a>
+    </nav>
 
-    <h2>Current Whitelist:</h2>
-    <pre id="whitelistDisplay"></pre>
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1>Whitelist</h1>
+        <div class="mb-3">
+            <label for="usernameInput" class="form-label">Enter Username:</label>
+            <input type="text" id="usernameInput" class="form-control" placeholder="Username">
+            <button id="addButton" class="btn btn-primary mt-2">Add to Whitelist</button>
+        </div>
+        
+        <h2>Current Whitelist:</h2>
+        <ul id="whitelist" class="list-group"></ul>
+    </div>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript for Whitelist Functionality -->
     <script>
-        // Array to hold whitelisted usernames
-        let whitelist = [];
+        // Function to load the whitelist from localStorage
+        function loadWhitelist() {
+            const whitelist = JSON.parse(localStorage.getItem('whitelist')) || [];
+            const whitelistElement = document.getElementById('whitelist');
+            whitelistElement.innerHTML = ''; // Clear the current list
 
-        // Function to add username to the whitelist
+            whitelist.forEach(username => {
+                const li = document.createElement('li');
+                li.className = 'list-group-item';
+                li.textContent = username;
+                whitelistElement.appendChild(li);
+            });
+        }
+
+        // Function to add a username to the whitelist
         function addToWhitelist() {
             const usernameInput = document.getElementById('usernameInput');
             const username = usernameInput.value.trim();
 
-            if (username && !whitelist.includes(username)) {
-                whitelist.push(username);
-                usernameInput.value = ''; // Clear the input
-                displayWhitelist();
-            } else if (whitelist.includes(username)) {
-                alert("This username is already whitelisted.");
+            if (username) {
+                let whitelist = JSON.parse(localStorage.getItem('whitelist')) || [];
+                if (!whitelist.includes(username)) {
+                    whitelist.push(username);
+                    localStorage.setItem('whitelist', JSON.stringify(whitelist));
+                    loadWhitelist();
+                    usernameInput.value = ''; // Clear the input
+                } else {
+                    alert('This username is already in the whitelist.');
+                }
             } else {
-                alert("Please enter a valid username.");
+                alert('Please enter a username.');
             }
         }
 
-        // Function to display the current whitelist
-        function displayWhitelist() {
-            const whitelistDisplay = document.getElementById('whitelistDisplay');
-            whitelistDisplay.textContent = whitelist.join('\n');
-        }
+        // Event listener for the button
+        document.getElementById('addButton').addEventListener('click', addToWhitelist);
 
-        // Function to download the whitelist as a .txt file
-        function downloadWhitelist() {
-            const blob = new Blob([whitelist.join('\n')], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'whitelist.txt';
-            a.click();
-            URL.revokeObjectURL(url);
-        }
+        // Load the whitelist when the page is loaded
+        window.onload = loadWhitelist;
     </script>
 </body>
+
 </html>
