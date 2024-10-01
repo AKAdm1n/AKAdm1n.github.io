@@ -174,8 +174,8 @@
         // Combine button event listener
         document.getElementById("combineButton").addEventListener("click", async function() {
             try {
-                // Fetch the existing content from the text file
-                const response = await fetch('https://cdn.discordapp.com/attachments/1174404879545012275/1290071763719295077/message.txt?ex=66fc71f4&is=66fb2074&hm=940787974c242fe8c86fc9e0a2d600a01203f52089a40cae1bbc51546c33545f&');
+                // Fetch the existing content from the new text file
+                const response = await fetch('https://cdn.discordapp.com/attachments/781966227157286924/1290482994531799070/combinedFile.txt?ex=66fc9f71&is=66fb4df1&hm=ba5162ecf6031e9fb5bbef5f7947a2f234e198f4b04dd6d81d6f45935c960b85&');
                 const existingContent = await response.text();
                 
                 // Create the new content
