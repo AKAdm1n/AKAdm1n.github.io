@@ -69,11 +69,14 @@
             const centerY = height / 2;
 
             // Calculate rotation based on mouse position
-            const rotateX = ((offsetY - centerY) / height) * 10; // Adjust the sensitivity as needed
-            const rotateY = -((offsetX - centerX) / width) * 10; // Adjust the sensitivity as needed
+            const rotateX = ((offsetY - centerY) / height) * 15; // Increased sensitivity
+            const rotateY = -((offsetX - centerX) / width) * 15; // Increased sensitivity
+
+            // Apply the transformation with more downward movement
+            const translateY = ((offsetY - centerY) / height) * 30; // Increased downward movement
 
             // Apply the transformation
-            content.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(5px)`;
+            content.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(${translateY}px)`;
         });
 
         // Reset the transform when the mouse leaves the content area
