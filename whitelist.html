@@ -32,6 +32,23 @@
     </div>
 
     <script>
+        // Disable right-click context menu
+        document.addEventListener('contextmenu', function (event) {
+            event.preventDefault();
+        });
+
+        // Disable common developer tools shortcuts
+        document.addEventListener('keydown', function (event) {
+            // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            if (
+                event.key === 'F12' ||
+                (event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'J')) ||
+                (event.ctrlKey && event.key === 'U')
+            ) {
+                event.preventDefault();
+            }
+        });
+
         const loginButton = document.getElementById('loginButton');
         const loginUsername = document.getElementById('loginUsername');
         const loginPassword = document.getElementById('loginPassword');
