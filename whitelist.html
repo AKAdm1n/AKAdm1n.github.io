@@ -34,8 +34,8 @@
                 });
             });
 
-        // Add username to whitelist
-        document.getElementById('addButton').onclick = () => {
+        // Function to add username to whitelist
+        const addUsernameToWhitelist = () => {
             const username = usernameInput.value.trim();
             if (username) {
                 fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist', {
@@ -57,6 +57,16 @@
                 });
             }
         };
+
+        // Add username to whitelist when button is clicked
+        document.getElementById('addButton').onclick = addUsernameToWhitelist;
+
+        // Add username to whitelist when Enter key is pressed
+        usernameInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                addUsernameToWhitelist();
+            }
+        });
 
         // Combine Download button
         document.getElementById('combineDownloadButton').onclick = async () => {
