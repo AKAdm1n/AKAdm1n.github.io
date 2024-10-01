@@ -24,23 +24,37 @@
     <script>
         const whitelistUsers = document.getElementById('whitelistUsers');
         const usernameInput = document.getElementById('username');
+        const baseURL = 'https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist';
 
         // Fetch the whitelist from the Node.js server
-        fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist')
-            .then(response => response.json())
-            .then(data => {
-                data.forEach(user => {
-                    const li = document.createElement('li');
-                    li.textContent = user;
-                    whitelistUsers.appendChild(li);
+        const fetchWhitelist = () => {
+            fetch(baseURL)
+                .then(response => {
+                    if (!response.ok) throw new Error('Failed to fetch whitelist');
+                    return response.json();
+                })
+                .then(data => {
+                    whitelistUsers.innerHTML = ''; // Clear the existing list
+                    data.forEach(user => {
+                        const li = document.createElement('li');
+                        li.textContent = user;
+                        whitelistUsers.appendChild(li);
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('Error fetching whitelist: ' + error.message);
                 });
-            });
+        };
+
+        // Initial fetch of the whitelist
+        fetchWhitelist();
 
         // Add username to whitelist
         document.getElementById('addButton').onclick = () => {
             const username = usernameInput.value.trim();
             if (username) {
-                fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist', {
+                fetch(baseURL, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -56,6 +70,10 @@
                     } else {
                         alert('Failed to add user to whitelist');
                     }
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('Error adding user: ' + error.message);
                 });
             }
         };
@@ -64,7 +82,7 @@
         document.getElementById('removeButton').onclick = () => {
             const username = usernameInput.value.trim();
             if (username) {
-                fetch(`https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist`, {
+                fetch(baseURL, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json'
@@ -81,13 +99,17 @@
                     } else {
                         alert('Failed to remove user from whitelist');
                     }
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('Error removing user: ' + error.message);
                 });
             }
         };
 
         // Download whitelist as a Lua table
         document.getElementById('downloadButton').onclick = () => {
-            fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist')
+            fetch(baseURL)
                 .then(response => response.json())
                 .then(users => {
                     const luaContent = `local whitelistedPlayers = {\n${users.map(user => `  "${user}",`).join('\n')}\n}`; // Create Lua content
@@ -100,6 +122,10 @@
                     a.click();
                     document.body.removeChild(a);
                     URL.revokeObjectURL(url);
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('Error downloading whitelist: ' + error.message);
                 });
         };
 
@@ -110,7 +136,7 @@
             const existingContent = await response.text(); // Get the text of the existing content
 
             // Fetch the current whitelist
-            const whitelistResponse = await fetch('https://b9147066-c15a-4ff8-aa2e-0c3587462bab-00-3taxu2quvjj99.janeway.replit.dev/whitelist');
+            const whitelistResponse = await fetch(baseURL);
             const users = await whitelistResponse.json();
 
             // Create the Lua table
