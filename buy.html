@@ -20,6 +20,14 @@
             background-size: cover;
             color: white;
             text-align: center;
+            opacity: 0; /* Start with 0 opacity */
+            animation: fadeIn 1s forwards; /* Apply fade-in effect */
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1; /* End with full opacity */
+            }
         }
 
         .wrapper {
@@ -66,7 +74,8 @@
             box-shadow: 0 0 20px rgba(40, 167, 69, 0.7); /* Glow effect on hover */
         }
 
-        .prices-button {
+        .prices-button,
+        .supported-button { /* Style for supported button */
             margin-top: 10px; /* Space between buttons */
             padding: 10px 20px;
             font-size: 1.2em;
@@ -80,7 +89,8 @@
             display: inline-block; /* Ensure button-like behavior */
         }
 
-        .prices-button:hover {
+        .prices-button:hover,
+        .supported-button:hover {
             box-shadow: 0 0 20px rgba(0, 123, 255, 0.7); /* Glow effect on hover */
         }
     </style>
@@ -99,7 +109,8 @@
             <p>Click below to buy the AK ADMIN Script!</p>
             <p>Or click the prices button to view our prices!</p>
             <a href="https://discord.gg/bzRByg7xUw" target="_blank" class="buy-button">Buy AK Admin</a>
-            <a href="https://akadm1n.github.io/prices.html" target="_blank" class="prices-button">View Prices</a> <!-- New Prices Button -->
+            <a href="https://akadm1n.github.io/prices.html" target="_blank" class="prices-button">View Prices</a> <!-- Prices Button -->
+            <a href="https://akadm1n.github.io/supported.html" target="_blank" class="supported-button">View Supported Executors</a> <!-- Supported Executors Button -->
         </div>
     </div>
 
