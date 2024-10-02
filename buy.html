@@ -21,12 +21,17 @@
             color: white;
             text-align: center;
             opacity: 0; /* Start with 0 opacity */
-            animation: fadeIn 1s forwards; /* Apply fade-in effect */
+            animation: fadeInSlideDown 2s forwards; /* Apply fade-in and slide-down effect */
         }
 
-        @keyframes fadeIn {
-            to {
-                opacity: 1; /* End with full opacity */
+        @keyframes fadeInSlideDown {
+            0% {
+                opacity: 0; /* Start invisible */
+                transform: translateY(-50px); /* Start from above */
+            }
+            100% {
+                opacity: 1; /* End fully visible */
+                transform: translateY(0); /* End at original position */
             }
         }
 
