@@ -9,8 +9,8 @@
         body {
             font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #ff8c00 0%, #ff8c00 50%, #000000 100%); /* Smooth gradient from orange to black */
-            background-size: 200% 200%; /* Larger gradient size */
-            animation: gradientAnimation 10s ease infinite; /* Smooth animation */
+            background-size: 300% 300%; /* Larger gradient size for a bigger effect */
+            animation: gradientAnimation 15s ease infinite; /* Smooth animation with a longer duration */
             color: white; /* White text */
             margin: 0;
             padding: 20px;
@@ -18,13 +18,16 @@
         h1 {
             color: orange; /* Orange color for headings */
             text-shadow: 2px 2px 5px black; /* Add a shadow for a spooky effect */
+            text-align: center; /* Center the heading */
         }
         .price-list {
             background-color: rgba(0, 0, 0, 0.8); /* Dark transparent background for the price list */
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             padding: 20px;
-            margin-top: 20px; /* Add space above the price list */
+            margin: 20px auto; /* Center the price list */
+            text-align: center; /* Center the text inside the price list */
+            max-width: 600px; /* Set a maximum width for the price list */
         }
         .price-item {
             margin: 15px 0;
