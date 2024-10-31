@@ -8,7 +8,9 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #ff8c00, #000000); /* Orange to Black gradient */
+            background: linear-gradient(135deg, #ff8c00 0%, #ff8c00 50%, #000000 100%); /* Smooth gradient from orange to black */
+            background-size: 200% 200%; /* Larger gradient size */
+            animation: gradientAnimation 10s ease infinite; /* Smooth animation */
             color: white; /* White text */
             margin: 0;
             padding: 20px;
@@ -41,6 +43,13 @@
         }
         a:hover {
             color: #ffcc00; /* Lighter color on hover */
+        }
+        
+        /* Keyframes for gradient animation */
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
     </style>
 </head>
