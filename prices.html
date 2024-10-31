@@ -3,27 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AK Admin Prices - Halloween Edition</title>
+    <title>🎃 AK Admin Prices - Halloween Edition 🎃</title>
     <link rel="icon" href="https://cdn.discordapp.com/attachments/1174404879545012275/1290061529680445561/IMG_0062.png?ex=66fd112c&is=66fbbfac&hm=01016e1014c200a554c70d5c1ffb5d3f23af9b5afc35f54132fc9da27caae8b6" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Righteous&display=swap" rel="stylesheet"> <!-- Font imports -->
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             background: linear-gradient(135deg, #ff8c00 0%, #ff8c00 50%, #000000 100%); /* Smooth gradient from orange to black */
             background-size: 300% 300%; /* Larger gradient size for a bigger effect */
             animation: gradientAnimation 15s ease infinite; /* Smooth animation with a longer duration */
             color: white; /* White text */
             margin: 0;
             padding: 20px;
+            text-align: center; /* Center-align text globally */
         }
         h1 {
-            color: orange; /* Orange color for headings */
+            font-family: 'Righteous', cursive; /* Decorative font for headings */
+            color: #ffcc00; /* Lighter gold color for headings */
             text-shadow: 2px 2px 5px black; /* Add a shadow for a spooky effect */
-            text-align: center; /* Center the heading */
+            margin-bottom: 20px; /* Space below the heading */
         }
         .price-list {
             background-color: rgba(0, 0, 0, 0.8); /* Dark transparent background for the price list */
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             padding: 20px;
             margin: 20px auto; /* Center the price list */
             text-align: center; /* Center the text inside the price list */
@@ -32,6 +35,10 @@
         .price-item {
             margin: 15px 0;
             font-size: 1.5em; /* Increased font size */
+            transition: transform 0.2s; /* Smooth hover transition */
+        }
+        .price-item:hover {
+            transform: scale(1.05); /* Slightly enlarge on hover */
         }
         .paypal-icon,
         .robux-icon {
@@ -39,13 +46,18 @@
             vertical-align: middle; /* Align icon with text */
             margin-right: 10px; /* Space between icon and text */
         }
-        a {
-            color: orange; /* Orange link color */
-            text-decoration: underline; /* Underline links */
-            transition: color 0.3s; /* Smooth color transition */
+        .button-link {
+            background-color: #ff8c00; /* Button color */
+            color: white; /* Button text color */
+            padding: 10px 15px; /* Button padding */
+            border-radius: 5px; /* Rounded corners */
+            text-decoration: none; /* No underline */
+            transition: background-color 0.3s; /* Smooth background color transition */
+            display: inline-block; /* Make link behave like a button */
+            margin-top: 10px; /* Space above buttons */
         }
-        a:hover {
-            color: #ffcc00; /* Lighter color on hover */
+        .button-link:hover {
+            background-color: #ffcc00; /* Lighter color on hover */
         }
         
         /* Keyframes for gradient animation */
@@ -53,6 +65,14 @@
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
+        }
+
+        /* Audio control styles */
+        .audio-control {
+            margin-top: 20px; /* Space above the audio control */
+            padding: 10px;
+            background-color: rgba(255, 140, 0, 0.8); /* Control background */
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -62,11 +82,15 @@
     <div class="price-list">
         <div class="price-item">
             <img src="https://cdn-icons-png.flaticon.com/512/174/174861.png" alt="PayPal Icon" class="paypal-icon"> <!-- PayPal icon -->
-            • 8€ Paypal (Family And Friends Only) (<a href="https://www.paypal.me/AliKhammas143" target="_blank">Click here to pay</a>)
+            • 8€ Paypal (Family And Friends Only) 
+            <br>
+            <a class="button-link" href="https://www.paypal.me/AliKhammas143" target="_blank">Click here to pay</a>
         </div>
         <div class="price-item">
             <img src="https://openseauserdata.com/files/4af336feebe8b7637ca549aaf4873b5b.png" alt="Robux Icon" class="robux-icon"> <!-- Robux icon -->
-            • 400 ROBUX (<a href="https://www.roblox.com/catalog/101120969629293" target="_blank">Click here to buy</a>)
+            • 400 ROBUX 
+            <br>
+            <a class="button-link" href="https://www.roblox.com/catalog/101120969629293" target="_blank">Click here to buy</a>
         </div>
     </div>
 
