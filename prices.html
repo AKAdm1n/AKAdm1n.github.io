@@ -3,53 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AK Admin Prices</title>
+    <title>AK Admin Prices - Halloween Edition</title>
     <link rel="icon" href="https://cdn.discordapp.com/attachments/1174404879545012275/1290061529680445561/IMG_0062.png?ex=66fd112c&is=66fbbfac&hm=01016e1014c200a554c70d5c1ffb5d3f23af9b5afc35f54132fc9da27caae8b6" type="image/png">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #2c3e50, #4ca1af); /* Dark gradient background */
+            background: url('https://cdn.pixabay.com/photo/2017/09/26/18/06/halloween-2787453_1280.jpg') no-repeat center center fixed; /* Halloween background image */
+            background-size: cover; /* Cover the entire background */
             color: white; /* White text */
             margin: 0;
             padding: 20px;
         }
         h1 {
-            color: #ffffff; /* White color for heading */
+            color: orange; /* Orange color for headings */
+            text-shadow: 2px 2px 5px black; /* Add a shadow for a spooky effect */
         }
         .price-list {
-            background-color: rgba(42, 42, 42, 0.9); /* Slightly transparent dark background for the price list */
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            background-color: rgba(0, 0, 0, 0.8); /* Dark transparent background for the price list */
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             padding: 20px;
+            margin-top: 20px; /* Add space above the price list */
         }
         .price-item {
-            margin: 10px 0;
+            margin: 15px 0;
             font-size: 1.5em; /* Increased font size */
         }
-        .paypal-icon {
-            width: 24px; /* Set the width of the PayPal icon */
-            vertical-align: middle; /* Align icon with text */
-            margin-right: 8px; /* Space between icon and text */
-        }
+        .paypal-icon,
         .robux-icon {
-            width: 24px; /* Set the width of the Robux icon */
+            width: 30px; /* Set the width of the icons */
             vertical-align: middle; /* Align icon with text */
-            margin-right: 8px; /* Space between icon and text */
+            margin-right: 10px; /* Space between icon and text */
+        }
+        a {
+            color: orange; /* Orange link color */
+            text-decoration: underline; /* Underline links */
+            transition: color 0.3s; /* Smooth color transition */
+        }
+        a:hover {
+            color: #ffcc00; /* Lighter color on hover */
         }
     </style>
 </head>
 <body>
 
-    <h1>PRICES</h1>
-    <h1>             Halloween sale 🎃</h1>
+    <h1>🎃 PRICES - Halloween Sale 🎃</h1>
     <div class="price-list">
         <div class="price-item">
-            <img src="https://cdn-icons-png.flaticon.com/512/174/174861.png" alt="PayPal Icon" class="paypal-icon"> <!-- Updated PayPal icon -->
-            • 8€ Paypal (Family And Friends Only) (<a href="https://www.paypal.me/AliKhammas143" style="color: white; text-decoration: underline;" target="_blank">Click here to pay</a>)
+            <img src="https://cdn-icons-png.flaticon.com/512/174/174861.png" alt="PayPal Icon" class="paypal-icon"> <!-- PayPal icon -->
+            • 8€ Paypal (Family And Friends Only) (<a href="https://www.paypal.me/AliKhammas143" target="_blank">Click here to pay</a>)
         </div>
         <div class="price-item">
             <img src="https://openseauserdata.com/files/4af336feebe8b7637ca549aaf4873b5b.png" alt="Robux Icon" class="robux-icon"> <!-- Robux icon -->
-            • 400 ROBUX (<a href="https://www.roblox.com/catalog/101120969629293" style="color: white; text-decoration: underline;" target="_blank">Click here to buy</a>)
+            • 400 ROBUX (<a href="https://www.roblox.com/catalog/101120969629293" target="_blank">Click here to buy</a>)
         </div>
     </div>
 
