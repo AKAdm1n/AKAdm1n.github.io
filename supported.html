@@ -12,6 +12,18 @@
             box-sizing: border-box;
         }
 
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #1C1C1E;
@@ -20,6 +32,7 @@
             padding: 20px;
             max-width: 1000px;
             margin: auto;
+            animation: fadeIn 3s ease-out;
         }
 
         h1, h2 {
@@ -27,6 +40,10 @@
             border-bottom: 2px solid #90CAF9;
             padding-bottom: 5px;
             margin-top: 20px;
+            animation: fadeIn 3s ease-out;
+            animation-delay: 0.5s;
+            opacity: 0;
+            animation-fill-mode: forwards;
         }
 
         h3 {
@@ -35,14 +52,23 @@
             margin-top: 10px;
             margin-bottom: 30px;
             font-size: 1rem;
+            animation: fadeIn 3s ease-out;
+            animation-delay: 1s;
+            opacity: 0;
+            animation-fill-mode: forwards;
         }
 
+        /* Table Styling */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
             border-radius: 8px;
             overflow: hidden;
+            animation: fadeIn 3s ease-out;
+            animation-delay: 1.5s;
+            opacity: 0;
+            animation-fill-mode: forwards;
         }
 
         th, td {
@@ -58,10 +84,13 @@
 
         td {
             background-color: #252526;
+            transition: background-color 0.3s ease;
         }
 
+        /* Row Hover Animation */
         tr:hover td {
             background-color: #33363D;
+            transform: scale(1.02);
         }
 
         /* Emoji Styles */
@@ -75,6 +104,10 @@
             list-style: none;
             padding-left: 0;
             margin: 10px 0;
+            animation: fadeIn 3s ease-out;
+            animation-delay: 1.2s;
+            opacity: 0;
+            animation-fill-mode: forwards;
         }
 
         li {
@@ -82,16 +115,33 @@
             font-size: 0.95rem;
         }
 
-        /* Link Styles */
+        /* Link Styles with Hover Animation */
         a {
             color: #64B5F6;
             text-decoration: none;
             font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
         }
 
         a:hover {
             color: #90CAF9;
-            text-decoration: underline;
+        }
+
+        a::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #90CAF9;
+            bottom: -2px;
+            left: 0;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        a:hover::after {
+            transform: scaleX(1);
         }
 
         /* Responsive Table */
