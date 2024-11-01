@@ -9,70 +9,84 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #ff8c00 0%, #ff8c00 50%, #000000 100%); /* Smooth gradient from orange to black */
-            background-size: 300% 300%; /* Larger gradient size for a bigger effect */
-            animation: gradientAnimation 15s ease infinite; /* Smooth animation with a longer duration */
-            color: white; /* White text */
+            background: linear-gradient(135deg, #ff8c00 0%, #ff8c00 50%, #000000 100%);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            color: white;
             margin: 0;
             padding: 20px;
-            text-align: center; /* Center-align text globally */
+            text-align: center;
+            overflow-x: hidden;
         }
         h1 {
-            font-family: 'Righteous', cursive; /* Decorative font for headings */
-            color: #ffcc00; /* Lighter gold color for headings */
-            text-shadow: 2px 2px 5px black; /* Add a shadow for a spooky effect */
-            margin-bottom: 20px; /* Space below the heading */
+            font-family: 'Righteous', cursive;
+            color: #ffcc00;
+            text-shadow: 2px 2px 5px black;
+            margin-bottom: 20px;
+            font-size: 2.5em;
         }
         .price-list {
-            background-color: rgba(0, 0, 0, 0.8); /* Dark transparent background for the price list */
+            background-color: rgba(0, 0, 0, 0.8);
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             padding: 20px;
-            margin: 20px auto; /* Center the price list */
-            text-align: center; /* Center the text inside the price list */
-            max-width: 600px; /* Set a maximum width for the price list */
+            margin: 20px auto;
+            text-align: center;
+            max-width: 90%;
+            width: 600px;
         }
         .price-item {
             margin: 15px 0;
-            font-size: 1.5em; /* Increased font size */
-            transition: transform 0.2s; /* Smooth hover transition */
+            font-size: 1.5em;
+            transition: transform 0.2s;
         }
         .price-item:hover {
-            transform: scale(1.05); /* Slightly enlarge on hover */
+            transform: scale(1.05);
         }
-        .paypal-icon,
-        .robux-icon {
-            width: 30px; /* Set the width of the icons */
-            vertical-align: middle; /* Align icon with text */
-            margin-right: 10px; /* Space between icon and text */
+        .icon {
+            width: 30px;
+            vertical-align: middle;
+            margin-right: 10px;
         }
         .button-link {
-            background-color: #ff8c00; /* Button color */
-            color: white; /* Button text color */
-            padding: 10px 15px; /* Button padding */
-            border-radius: 5px; /* Rounded corners */
-            text-decoration: none; /* No underline */
-            transition: background-color 0.3s; /* Smooth background color transition */
-            display: inline-block; /* Make link behave like a button */
-            margin-top: 10px; /* Space above buttons */
+            background-color: #ff8c00;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 1em;
         }
         .button-link:hover {
-            background-color: #ffcc00; /* Lighter color on hover */
+            background-color: #ffcc00;
         }
         
-        /* Keyframes for gradient animation */
         @keyframes gradientAnimation {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        /* Audio control styles */
         .audio-control {
-            margin-top: 20px; /* Space above the audio control */
+            margin-top: 20px;
             padding: 10px;
-            background-color: rgba(255, 140, 0, 0.8); /* Control background */
+            background-color: rgba(255, 140, 0, 0.8);
             border-radius: 5px;
+            display: inline-block;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+            .price-item {
+                font-size: 1.2em;
+            }
+            .button-link {
+                font-size: 0.9em;
+            }
         }
     </style>
 </head>
@@ -81,16 +95,22 @@
     <h1>🎃 PRICES - Halloween Sale 🎃</h1>
     <div class="price-list">
         <div class="price-item">
-            <img src="https://cdn-icons-png.flaticon.com/512/174/174861.png" alt="PayPal Icon" class="paypal-icon"> <!-- PayPal icon -->
+            <img src="https://cdn-icons-png.flaticon.com/512/174/174861.png" alt="PayPal Icon" class="icon"> 
             • 8€ Paypal (Family And Friends Only) 
             <br>
             <a class="button-link" href="https://www.paypal.me/AliKhammas143" target="_blank">Click here to pay</a>
         </div>
         <div class="price-item">
-            <img src="https://openseauserdata.com/files/4af336feebe8b7637ca549aaf4873b5b.png" alt="Robux Icon" class="robux-icon"> <!-- Robux icon -->
+            <img src="https://openseauserdata.com/files/4af336feebe8b7637ca549aaf4873b5b.png" alt="Robux Icon" class="icon"> 
             • 400 ROBUX 
             <br>
             <a class="button-link" href="https://www.roblox.com/catalog/101120969629293" target="_blank">Click here to buy</a>
+        </div>
+        <div class="price-item">
+            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968919.png" alt="Nitro Boost Icon" class="icon"> 
+            • 3 Nitro Server Boosts
+            <br>
+            <a class="button-link" href="https://discord.com" target="_blank">Click here to buy</a>
         </div>
     </div>
 
