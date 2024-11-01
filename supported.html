@@ -5,153 +5,179 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Supported Executors</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
+        /* Universal Reset */
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1C1C1E;
+            color: #E0E0E0;
+            line-height: 1.6;
             padding: 20px;
+            max-width: 1000px;
+            margin: auto;
         }
-        h1 {
-            color: #ffffff;
+
+        h1, h2 {
+            color: #90CAF9;
+            border-bottom: 2px solid #90CAF9;
+            padding-bottom: 5px;
+            margin-top: 20px;
         }
-        h2 {
-            color: #4CAF50;
+
+        h3 {
+            color: #B0BEC5;
+            font-weight: 300;
+            margin-top: 10px;
+            margin-bottom: 30px;
+            font-size: 1rem;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
         }
+
         th, td {
-            border: 1px solid #444;
-            padding: 8px;
+            padding: 12px 15px;
             text-align: left;
         }
+
         th {
-            background-color: #1e1e1e;
-            color: #ffffff;
+            background-color: #2A2A2E;
+            color: #ECEFF1;
+            font-weight: 600;
         }
-        tr:hover {
-            background-color: #333;
+
+        td {
+            background-color: #252526;
         }
-        .green-dot {
-            color: #4CAF50;
+
+        tr:hover td {
+            background-color: #33363D;
         }
-        .orange-dot {
-            color: #FFA500;
+
+        /* Emoji Styles */
+        .green-dot { color: #4CAF50; }
+        .orange-dot { color: #FFA500; }
+        .red-dot { color: #FF5252; }
+        .question-dot { color: #FFEB3B; }
+
+        /* List Styling */
+        ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 10px 0;
         }
-        .red-dot {
-            color: #FF0000;
+
+        li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
         }
-        .question-dot {
-            color: #FFFF00;
+
+        /* Link Styles */
+        a {
+            color: #64B5F6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            color: #90CAF9;
+            text-decoration: underline;
+        }
+
+        /* Responsive Table */
+        @media (max-width: 768px) {
+            table, th, td {
+                display: block;
+                width: 100%;
+            }
+            th, td {
+                padding: 10px;
+                text-align: left;
+            }
+            tr {
+                margin-bottom: 15px;
+                border-bottom: 1px solid #444;
+            }
         }
     </style>
 </head>
 <body>
-    <h3>If you try running the script and it works and the executor isn't listed here then dm one of the owners that it works so we can add it</h3>
-    <h1>Supported Executors</h1>
+    <header>
+        <h1>Supported Executors</h1>
+        <h3>If an executor runs the script but isn't listed, DM one of the owners for an update.</h3>
+    </header>
     
-    <h2>Meaning of Emojis</h2>
-    <ul>
-        <li><span class="green-dot">🟢</span> = can run script</li>
-        <li><span class="orange-dot">🟠</span> = can maybe run script</li>
-        <li><span class="question-dot">❓</span> = haven't tested</li>
-        <li><span class="red-dot">🔴</span> = can't run script</li>
-    </ul>
+    <section>
+        <h2>Meaning of Symbols</h2>
+        <ul>
+            <li><span class="green-dot">🟢</span> = Can run the script</li>
+            <li><span class="orange-dot">🟠</span> = Might run the script</li>
+            <li><span class="question-dot">❓</span> = Untested</li>
+            <li><span class="red-dot">🔴</span> = Can't run the script</li>
+        </ul>
+    </section>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Android Executors</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Hydrogen <span class="green-dot">❓</span></td>
-            </tr>
-            <tr>
-                <td>Evon <span class="green-dot">❓</span> <a href="https://sakpot.com/android-evon-mobile-executor-roblox-download/">Download</a></td> 
-            </tr>
-            <tr>
-                <td>Acreus X Neo <span class="green-dot">❓</span> <a href="https://spdmteam.com/index?os=android">Download</a></td>
-            </tr>
-            <tr>
-                <td>Codex <span class="green-dot">🟢</span> <a href="https://codex.lol/android">Download</a></td>
-            </tr>
-            <tr>
-                <td>Delta <span class="green-dot">🟢</span> <a href="https://deltaexploits.gg/delta-executor-mobile">Download</a></td>
-            </tr>
-            <tr>
-                <td>VegaX <span class="green-dot">❓</span> <a href="https://www.vegax.gg/">Download</a></td>
-            </tr>
-        </tbody>
-    </table>
+    <!-- Executors Tables -->
+    <section>
+        <table>
+            <thead>
+                <tr><th>Android Executors</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Hydrogen <span class="question-dot">❓</span></td></tr>
+                <tr><td>Evon <span class="question-dot">❓</span> <a href="https://sakpot.com/android-evon-mobile-executor-roblox-download/">Download</a></td></tr>
+                <tr><td>Acreus X Neo <span class="question-dot">🟢</span> <a href="https://spdmteam.com/index?os=android">Download</a></td></tr>
+                <tr><td>Codex <span class="green-dot">🟢</span> <a href="https://codex.lol/android">Download</a></td></tr>
+                <tr><td>Delta <span class="green-dot">🟢</span> <a href="https://deltaexploits.gg/delta-executor-mobile">Download</a></td></tr>
+                <tr><td>VegaX <span class="question-dot">❓</span> <a href="https://www.vegax.gg/">Download</a></td></tr>
+            </tbody>
+        </table>
 
-    <table>
-        <thead>
-            <tr>
-                <th>PC Executors</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Seliware <span class="green-dot">🟢</span> <a href="https://seliware.com/">Download</a></td>
-            </tr>
-            <tr>
-                <td>Xeno <span class="green-dot">🔴</span></td>
-            </tr>
-            <tr>
-                <td>Wave <span class="green-dot">🟢</span> <a href="https://getwave.gg/">Download</a></td>
-            </tr>
-            <tr>
-                <td>Synapse z <span class="green-dot">🟢</span> <a href="https://synapsez.net/">Download</a></td>
-            </tr>
-            <tr>
-                <td>Solara <span class="green-dot">🔴</span> <a href="https://getsolara.dev/">Download</a></td>
-            </tr>
-            <tr>
-                <td>JJsploit <span class="green-dot">🔴</span> <a href="https://wearedevs.net/dInfo/JJSploit">Download</a></td>
-            </tr>
-            <tr>
-                <td>Zorara <span class="green-dot">🔴</span> <a href="https://wearedevs.net/d/Zorara">Download</a></td>
-            </tr>
-            <tr>
-                <td>Celery <span class="green-dot">❓</span></td>
-            </tr>
-        </tbody>
-    </table>
-      <table>
-        <thead>
-            <tr>
-                <th>IOS Executors</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Delta <span class="green-dot">🟢</span> <a href="https://deltaexploits.gg/delta-executor-ios">Download</a></td>
-            </tr>
-            <tr>
-                <td>Apple-ware <span class="green-dot">🟢</span> <a href="https://appleware.dev/">Download</a></td>
-            </tr>
-            <tr>
-                <td>Acreus X Neo <span class="green-dot">🟢</span> <a href="https://spdmteam.com/index?os=ios">Download</a></td>
-            </tr>
-        </tbody>
-    </table>
-  <table>
-        <thead>
-            <tr>
-                <th>Mac OS Executors</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Macsploit <span class="green-dot">❓</span> <a href="https://abyssdigital.mysellix.io/">Download</a> <a href="https://discord.com/invite/macsploit">Discord</a></td>
-            </tr>
-        </tbody>
-    </table>
-    
+        <table>
+            <thead>
+                <tr><th>PC Executors</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Seliware <span class="green-dot">🟢</span> <a href="https://seliware.com/">Download</a></td></tr>
+                <tr><td>Xeno <span class="red-dot">🔴</span></td></tr>
+                <tr><td>Wave <span class="green-dot">🟢</span> <a href="https://getwave.gg/">Download</a></td></tr>
+                <tr><td>Synapse z <span class="green-dot">🟢</span> <a href="https://synapsez.net/">Download</a></td></tr>
+                <tr><td>Solara <span class="red-dot">🔴</span> <a href="https://getsolara.dev/">Download</a></td></tr>
+                <tr><td>JJsploit <span class="red-dot">🔴</span> <a href="https://wearedevs.net/dInfo/JJSploit">Download</a></td></tr>
+                <tr><td>Zorara <span class="red-dot">🔴</span> <a href="https://wearedevs.net/d/Zorara">Download</a></td></tr>
+                <tr><td>Celery <span class="question-dot">❓</span></td></tr>
+            </tbody>
+        </table>
+
+        <table>
+            <thead>
+                <tr><th>iOS Executors</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Delta <span class="green-dot">🟢</span> <a href="https://deltaexploits.gg/delta-executor-ios">Download</a></td></tr>
+                <tr><td>Apple-ware <span class="green-dot">🟢</span> <a href="https://appleware.dev/">Download</a></td></tr>
+                <tr><td>Acreus X Neo <span class="green-dot">🟢</span> <a href="https://spdmteam.com/index?os=ios">Download</a></td></tr>
+            </tbody>
+        </table>
+
+        <table>
+            <thead>
+                <tr><th>Mac OS Executors</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Macsploit <span class="question-dot">❓</span> <a href="https://abyssdigital.mysellix.io/">Download</a> <a href="https://discord.com/invite/macsploit">Discord</a></td></tr>
+            </tbody>
+        </table>
+    </section>
 </body>
 </html>
