@@ -168,7 +168,10 @@
 
             if (user) {
                 showMessage('Login successful!', true);
-                // Here you can redirect to the main page or perform other actions
+                localStorage.setItem('currentUser', email);
+                setTimeout(() => {
+                    window.location.href = 'https://akadm1n.github.io/mainforum.html';
+                }, 1500);
             } else {
                 showMessage('Invalid email or password!', false);
             }
