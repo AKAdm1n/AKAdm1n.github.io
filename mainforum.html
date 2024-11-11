@@ -1,1 +1,152 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum Home</title>
+    <style>
+        :root {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #252525;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --accent: #4a9eff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--bg-secondary);
+            padding: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .forum-title {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .category-card {
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .category-title {
+            font-size: 1.25rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .category-stats {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .latest-post {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #333;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            background-color: var(--bg-secondary);
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="forum-title">Forum Name</h1>
+            <nav class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">Categories</a>
+                <a href="#">Recent Posts</a>
+                <a href="#">Members</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="category-card">
+            <h2 class="category-title">General Discussion</h2>
+            <p>A place for general topics and discussions.</p>
+            <div class="category-stats">
+                <span>Topics: 125</span>
+                <span>Posts: 1,432</span>
+            </div>
+            <div class="latest-post">
+                Latest: "Welcome to the Forum!" by Admin - 2 hours ago
+            </div>
+        </div>
+
+        <div class="category-card">
+            <h2 class="category-title">Technology</h2>
+            <p>Discuss the latest in tech and programming.</p>
+            <div class="category-stats">
+                <span>Topics: 89</span>
+                <span>Posts: 943</span>
+            </div>
+            <div class="latest-post">
+                Latest: "New Programming Languages in 2024" by TechGuru - 5 hours ago
+            </div>
+        </div>
+
+        <div class="category-card">
+            <h2 class="category-title">Help & Support</h2>
+            <p>Need assistance? Ask your questions here.</p>
+            <div class="category-stats">
+                <span>Topics: 234</span>
+                <span>Posts: 2,156</span>
+            </div>
+            <div class="latest-post">
+                Latest: "How to Format Code?" by NewUser - 1 hour ago
+            </div>
+        </div>
+    </main>
+</body>
+</html>
