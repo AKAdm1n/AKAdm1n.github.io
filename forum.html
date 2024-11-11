@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Forum</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            color: #1a73e8;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 0.5rem;
+            font-size: 1rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.8rem;
+            background: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #1557b0;
+        }
+
+        .toggle-form {
+            text-align: center;
+            margin-top: 1rem;
+            color: #1a73e8;
+            cursor: pointer;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="loginForm">
+            <h2>Login</h2>
+            <div class="form-group">
+                <input type="email" id="loginEmail" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="loginPassword" placeholder="Password" required>
+            </div>
+            <button onclick="login()">Sign In</button>
+            <div class="toggle-form" onclick="toggleForms()">Need an account? Sign up</div>
+        </div>
+
+        <div id="signupForm" style="display: none;">
+            <h2>Create Account</h2>
+            <div class="form-group">
+                <input type="email" id="signupEmail" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="signupPassword" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+            </div>
+            <button onclick="signup()">Sign Up</button>
+            <div class="toggle-form" onclick="toggleForms()">Already have an account? Sign in</div>
+        </div>
+    </div>
+
+    <script>
+        function toggleForms() {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            
+            if (loginForm.style.display === 'none') {
+                loginForm.style.display = 'block';
+                signupForm.style.display = 'none';
+            } else {
+                loginForm.style.display = 'none';
+                signupForm.style.display = 'block';
+            }
+        }
+
+        function signup() {
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                showMessage('Passwords do not match!', false);
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            if (users.some(user => user.email === email)) {
+                showMessage('Email already exists!', false);
+                return;
+            }
+
+            users.push({ email, password });
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            showMessage('Account created successfully!', true);
+            setTimeout(() => {
+                toggleForms();
+            }, 1500);
+        }
+
+        function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                showMessage('Login successful!', true);
+                // Here you can redirect to the main page or perform other actions
+            } else {
+                showMessage('Invalid email or password!', false);
+            }
+        }
+
+        function showMessage(text, isSuccess) {
+            const container = document.querySelector('.container');
+            const existingMessage = container.querySelector('.message');
+            
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isSuccess ? 'success' : 'error'}`;
+            messageDiv.textContent = text;
+            
+            container.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
