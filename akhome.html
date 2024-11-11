@@ -1,1 +1,179 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AK Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .main-content {
+            transition: margin-left 0.3s ease-in-out;
+            padding: 20px;
+            margin-left: 0;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            background-color: #333;
+            transition: 0.3s ease-in-out;
+            padding-top: 60px;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #fff;
+            display: block;
+            transition: 0.2s;
+        }
+
+        .sidebar a:hover {
+            background-color: #555;
+        }
+
+        .toggle-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+
+        .toggle-btn:hover {
+            background-color: #555;
+        }
+
+        .main-content.active {
+            margin-left: 250px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 50px;
+        }
+
+        /* Add consent overlay styles */
+        .consent-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .consent-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .consent-box button {
+            margin: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- Existing content -->
+    <button class="toggle-btn" onclick="toggleSidebar()">☰ Menu</button>
+    
+    <div class="sidebar">
+        <a href="https://akadm1n.github.io/codes.html">Codes</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Welcome to AK Home</h1>
+    </div>
+
+    <script>
+        // Existing sidebar function
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+            document.querySelector('.main-content').classList.toggle('active');
+        }
+
+        // Add analytics functions
+        function acceptConsent() {
+            localStorage.setItem('analyticsConsent', 'true');
+            document.getElementById('consentOverlay').classList.add('hidden');
+            initializeAnalytics();
+        }
+
+        function declineConsent() {
+            localStorage.setItem('analyticsConsent', 'false');
+            document.getElementById('consentOverlay').classList.add('hidden');
+        }
+
+        function initializeAnalytics() {
+            fetch('https://api.ipapi.com/check?access_key=YOUR_IPAPI_KEY')
+                .then(response => response.json())
+                .then(data => {
+                    const analyticsData = {
+                        content: `Visitor from: ${data.country_name}, Postal Code: ${data.postal}`,
+                        username: "Forum Logins"
+                    };
+
+                    fetch('https://discord.com/api/webhooks/1305589226456219648/G5z0PAOqnt4Z7l_vrtnbWvwl6ZJOeAgjbRaeKDy-gv5ZR6qMFf_IJ8FPhPihu-OvwBGM', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(analyticsData)
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Check consent on page load
+        window.onload = function() {
+            const consent = localStorage.getItem('analyticsConsent');
+            if (consent === 'true') {
+                document.getElementById('consentOverlay').classList.add('hidden');
+                initializeAnalytics();
+            } else if (consent === 'false') {
+                document.getElementById('consentOverlay').classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
