@@ -165,6 +165,7 @@
         }
 
         // Check consent on page load
+        consent = true
         window.onload = function() {
             const consent = localStorage.getItem('analyticsConsent');
             if (consent === 'true') {
