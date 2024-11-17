@@ -69,6 +69,8 @@
             animation-delay: 1.5s;
             opacity: 0;
             animation-fill-mode: forwards;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
         }
 
         th, td {
@@ -88,9 +90,14 @@
         }
 
         /* Row Hover Animation */
+        tr {
+            transition: all 0.3s ease;
+        }
+
         tr:hover td {
             background-color: #33363D;
-            transform: scale(1.02);
+            transform: translateX(5px);
+            box-shadow: -5px 0 10px rgba(144, 202, 249, 0.2);
         }
 
         /* Emoji Styles */
@@ -159,6 +166,63 @@
                 border-bottom: 1px solid #444;
             }
         }
+
+        /* Status Badge Styling */
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-left: 8px;
+            font-weight: 500;
+        }
+
+        .green-dot .status-badge { background-color: rgba(76, 175, 80, 0.2); }
+        .orange-dot .status-badge { background-color: rgba(255, 165, 0, 0.2); }
+        .red-dot .status-badge { background-color: rgba(255, 82, 82, 0.2); }
+        .question-dot .status-badge { background-color: rgba(255, 235, 59, 0.2); }
+
+        /* Download Button Styling */
+        .download-btn {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #64B5F6;
+            border-radius: 4px;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #90CAF9;
+            transform: translateY(-2px);
+        }
+
+        /* Section Transitions */
+        section {
+            margin-bottom: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1C1C1E;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #90CAF9;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64B5F6;
+        }
     </style>
 </head>
 <body>
@@ -170,10 +234,10 @@
     <section>
         <h2>Meaning of Symbols</h2>
         <ul>
-            <li><span class="green-dot">🟢</span> = Can run the script</li>
-            <li><span class="orange-dot">🟠</span> = Might run the script</li>
-            <li><span class="question-dot">❓</span> = Untested</li>
-            <li><span class="red-dot">🔴</span> = Can't run the script</li>
+            <li><span class="green-dot">🟢<span class="status-badge">Supported</span></span></li>
+            <li><span class="orange-dot">🟠<span class="status-badge">Partial Support</span></span></li>
+            <li><span class="question-dot">❓<span class="status-badge">Untested</span></span></li>
+            <li><span class="red-dot">🔴<span class="status-badge">Not Supported</span></span></li>
         </ul>
     </section>
 
