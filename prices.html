@@ -14,6 +14,8 @@
             --gold: #ffd700;
             --premium-gold: linear-gradient(45deg, #ffd700, #ffec8b);
             --frost-white: rgba(255, 255, 255, 0.9);
+            --premium-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --neon-glow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
 
         body {
@@ -111,17 +113,24 @@
         }
 
         .price-item {
-            margin: 25px 0;
-            padding: 20px;
-            font-size: clamp(1rem, 3vw, 1.4rem);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-radius: 20px;
+            margin: 35px 0;
+            padding: 30px;
+            border-radius: 25px;
             background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #ffffff;
             position: relative;
+            overflow: hidden;
             transform-style: preserve-3d;
             perspective: 1000px;
+        }
+
+        .price-item.recommended {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: var(--premium-shadow),
+                        0 0 20px rgba(255, 215, 0, 0.2);
+            margin-top: 45px;
         }
 
         .price-item:hover {
@@ -133,36 +142,31 @@
         .icon {
             width: 45px;
             height: 45px;
-            vertical-align: middle;
-            margin-right: 20px;
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            transform: translateZ(30px);
         }
 
-        .price-item:hover .icon {
-            transform: scale(1.2) rotate(5deg);
+        .recommended .icon {
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)) 
+                   drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
         }
 
         .button-link {
             background: linear-gradient(45deg, #ff0000, #ff4d4d, #ff0000);
             background-size: 200% 200%;
             animation: gradientShift 3s ease infinite;
-            border: none;
-            padding: 12px 25px;
-            color: white;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            padding: 15px 30px;
             border-radius: 30px;
-            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: clamp(0.8rem, 2vw, 1rem);
-            margin-top: 15px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            gap: 12px;
+            transform: translateZ(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .recommended .button-link {
+            box-shadow: var(--premium-shadow), var(--neon-glow);
         }
 
         .button-link i {
@@ -184,8 +188,8 @@
         }
 
         @keyframes shine {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
         }
 
         @keyframes gradientAnimation {
@@ -396,24 +400,145 @@
             100% { transform: translateX(100%) rotate(45deg); }
         }
 
+        /* Enhanced recommended label */
+        .recommended-label {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--premium-gold);
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            color: #000;
+            font-weight: bold;
+            box-shadow: var(--premium-shadow);
+            z-index: 2;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .recommended-label::after {
+            content: ' ⭐';
+            font-size: 1.1em;
+            vertical-align: middle;
+        }
+
+        /* Enhanced price item */
+        .price-item {
+            margin: 35px 0;
+            padding: 30px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .price-item.recommended {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: var(--premium-shadow),
+                        0 0 20px rgba(255, 215, 0, 0.2);
+            margin-top: 45px;
+        }
+
+        /* Enhanced price tag */
+        .price-tag {
+            background: var(--premium-gold);
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            margin: 15px 0;
+            box-shadow: var(--premium-shadow);
+            transform: translateZ(20px);
+        }
+
+        .recommended .price-tag {
+            transform: scale(1.1) translateZ(30px);
+            box-shadow: var(--premium-shadow), var(--neon-glow);
+        }
+
+        /* Enhanced button */
+        .button-link {
+            background: linear-gradient(45deg, #ff0000, #ff4d4d, #ff0000);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            gap: 12px;
+            transform: translateZ(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .recommended .button-link {
+            box-shadow: var(--premium-shadow), var(--neon-glow);
+        }
+
+        /* New hover effects */
+        .price-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%),
+                rgba(255, 255, 255, 0.1) 0%,
+                transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .price-item:hover::after {
+            opacity: 1;
+        }
+
+        /* New animations */
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        /* Payment note enhancement */
+        .payment-note {
+            font-size: 0.8em;
+            opacity: 0.8;
+            margin-top: 5px;
+            font-style: italic;
+            transform: translateZ(15px);
+        }
+
+        /* Add responsive adjustments */
         @media (max-width: 768px) {
-            .price-list {
-                padding: 15px;
+            .price-item {
+                padding: 20px;
+                margin: 25px 0;
             }
 
-            .price-item {
-                padding: 15px;
-                margin: 15px 0;
+            .recommended-label {
+                font-size: 0.7em;
+                padding: 4px 15px;
+            }
+
+            .price-tag {
+                padding: 8px 20px;
             }
 
             .button-link {
-                padding: 10px 20px;
-            }
-
-            .premium-badge {
-                width: 30px;
-                height: 30px;
-                font-size: 1em;
+                padding: 12px 25px;
+                font-size: 0.9em;
             }
         }
 
@@ -443,9 +568,9 @@
 
     <h1>🎄 PREMIUM PRICES 🎅</h1>
     <div class="price-list">
-        <div class="price-item">
+        <div class="price-item recommended">
+            <div class="recommended-label">RECOMMENDED</div>
             <div class="glow-effect"></div>
-            <div class="premium-badge">⭐</div>
             <img src="https://cdn-icons-png.flaticon.com/512/174/174861.png" alt="PayPal Icon" class="icon"> 
             <div class="price-tag">12€ PayPal</div>
             <div class="payment-note">(Family And Friends Only)</div>
@@ -481,6 +606,17 @@
             }
         }
         createSnowflakes();
+
+        // Add interactive light effect
+        document.querySelectorAll('.price-item').forEach(item => {
+            item.addEventListener('mousemove', (e) => {
+                const rect = item.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                item.style.setProperty('--x', `${x}%`);
+                item.style.setProperty('--y', `${y}%`);
+            });
+        });
     </script>
 </body>
 </html>
