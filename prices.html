@@ -9,17 +9,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary-blue: #1a1b29;
-            --secondary-blue: #141522;
-            --accent-blue: #2f3146;
-            --text-blue: #7289da;
+            --primary-red: #ff0000;
+            --primary-green: #1a472a;
             --gold: #ffd700;
-            --white: #ffffff;
+            --premium-gold: linear-gradient(45deg, #ffd700, #ffec8b);
+            --frost-white: rgba(255, 255, 255, 0.9);
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: var(--primary-blue);
+            background: linear-gradient(135deg, var(--primary-green) 0%, #2d5a27 50%, #0c1445 100%);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
             min-height: 100vh;
             margin: 0;
             padding: 20px;
@@ -38,7 +39,6 @@
             position: absolute;
             top: -5vh;
             animation: snowfall linear infinite;
-            opacity: 0.3;
         }
 
         @keyframes snowfall {
@@ -61,7 +61,7 @@
                 var(--gold) 0px 5px,
                 transparent 5px 20px);
             animation: twinkle 1s infinite;
-            opacity: 0.4;
+            opacity: 0.7;
             filter: blur(1px);
         }
 
@@ -72,8 +72,10 @@
 
         h1 {
             font-family: 'Mountains of Christmas', cursive;
-            color: var(--text-blue);
-            text-shadow: 0 0 10px rgba(114, 137, 218, 0.5);
+            color: var(--primary-red);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5),
+                         0 0 15px rgba(255, 255, 255, 0.8),
+                         0 0 5px var(--gold);
             margin: 20px 0;
             font-size: 3em;
             letter-spacing: 3px;
@@ -81,13 +83,14 @@
         }
 
         .price-list {
-            background: var(--secondary-blue);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             border-radius: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             padding: 20px;
             margin: 15px auto;
-            max-width: 800px;
-            border: 1px solid var(--accent-blue);
+            max-width: 600px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
             position: relative;
             overflow: hidden;
         }
@@ -112,8 +115,8 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             padding: 15px;
             border-radius: 20px;
-            background: var(--accent-blue);
-            border: 1px solid rgba(114, 137, 218, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: #ffffff;
             position: relative;
         }
@@ -138,7 +141,9 @@
         }
 
         .button-link {
-            background: var(--text-blue);
+            background: linear-gradient(45deg, #ff0000, #ff4d4d, #ff0000);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
             border: none;
             padding: 10px 25px;
             color: white;
@@ -146,7 +151,7 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             border-radius: 30px;
-            box-shadow: 0 4px 15px rgba(114, 137, 218, 0.3);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -248,11 +253,11 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            background: var(--text-blue);
+            background: var(--premium-gold);
             padding: 5px 15px;
             border-radius: 15px;
             font-size: 0.7em;
-            color: var(--white);
+            color: #000;
             font-weight: bold;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             opacity: 0;
@@ -281,10 +286,10 @@
         /* New price tag design */
         .price-tag {
             display: inline-block;
-            background: var(--text-blue);
+            background: var(--premium-gold);
             padding: 5px 15px;
             border-radius: 20px;
-            color: var(--white);
+            color: #000;
             font-weight: bold;
             margin: 10px 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -335,10 +340,14 @@
     <!-- Discord/Open Graph Meta Tags -->
     <meta property="og:title" content="🎄 Premium Prices - Christmas Special 🎅">
     <meta property="og:description" content="Check out our special Christmas pricing for Premium access! PayPal, Robux, and Nitro Boost options available.">
-    <meta property="og:image" content="https://cdn.discordapp.com/attachments/1174404879545012275/1307764171370135602/image.png?ex=673b7dcb&is=673a2c4b&hm=1dee441ce57715604afa2ad411eb4fb42272dd7082f491f2b1f8bce00022de47&"> 
+    <meta property="og:image" content="https://cdn.discordapp.com/attachments/1174404879545012275/1307764171370135602/image.png?ex=673b7dcb&is=673a2c4b&hm=1dee441ce57715604afa2ad411eb4fb42272dd7082f491f2b1f8bce00022de47&">
     <meta property="og:url" content="[https://akadm1n.github.io/prices.html]">
     <meta property="og:type" content="website">
     <meta property="theme-color" content="#1a472a">
+    <meta property="og:title" content="AK Admin Prices - Premium Christmas Edition" />
+    <meta property="og:description" content="Check out our special Christmas pricing for Premium access! PayPal, Robux, and Nitro Boost options available." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://akadm1n.github.io/prices.html" />
 </head>
 <body>
     <div class="frost-overlay"></div>
