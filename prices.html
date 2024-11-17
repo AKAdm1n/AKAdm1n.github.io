@@ -5,14 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎄 AK Admin Prices - Christmas Edition 🎅</title>
     <link rel="icon" href="https://cdn.discordapp.com/attachments/1174404879545012275/1290061529680445561/IMG_0062.png?ex=66fd112c&is=66fbbfac&hm=01016e1014c200a554c70d5c1ffb5d3f23af9b5afc35f54132fc9da27caae8b6" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Mountains+of+Christmas:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-red: #ff0000;
+            --primary-green: #1a472a;
+            --gold: #ffd700;
+        }
+
         body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #1a472a 0%, #2d5a27 50%, #0c1445 100%);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary-green) 0%, #2d5a27 50%, #0c1445 100%);
             background-size: 400% 400%;
             animation: gradientAnimation 15s ease infinite;
-            color: white;
+            min-height: 100vh;
             margin: 0;
             padding: 20px;
             text-align: center;
@@ -20,93 +26,172 @@
             position: relative;
         }
 
-        /* Add snowfall effect */
-        body::before {
-            content: '';
+        /* Enhanced snowfall effect */
+        .snowflake {
+            --size: 1vw;
+            width: var(--size);
+            height: var(--size);
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: -5vh;
+            animation: snowfall linear infinite;
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        /* Christmas lights effect */
+        .lights {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(white 1px, transparent 1px),
-                radial-gradient(white 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: snowfall 10s linear infinite;
-            pointer-events: none;
-            opacity: 0.5;
+            right: 0;
+            height: 4px;
+            background: repeating-linear-gradient(90deg,
+                var(--gold) 0px 5px,
+                transparent 5px 20px);
+            animation: twinkle 1s infinite;
+            opacity: 0.7;
+            filter: blur(1px);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 0.3; }
         }
 
         h1 {
             font-family: 'Mountains of Christmas', cursive;
-            color: #ff0000;
+            color: var(--primary-red);
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5),
-                         0 0 10px rgba(255, 255, 255, 0.8);
-            margin-bottom: 30px;
-            font-size: 3.5em;
-            letter-spacing: 2px;
+                         0 0 15px rgba(255, 255, 255, 0.8),
+                         0 0 5px var(--gold);
+            margin: 40px 0;
+            font-size: 4em;
+            letter-spacing: 3px;
+            animation: titleGlow 2s ease-in-out infinite;
         }
 
         .price-list {
-            background-color: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
+            border-radius: 30px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            padding: 30px;
-            margin: 20px auto;
-            text-align: center;
-            max-width: 90%;
-            width: 700px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            margin: 30px auto;
+            max-width: 800px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-list::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                transparent 0%,
+                rgba(255, 255, 255, 0.1) 50%,
+                transparent 100%);
+            animation: shine 3s infinite;
         }
 
         .price-item {
-            margin: 25px 0;
-            font-size: 1.6em;
-            transition: all 0.3s ease;
-            padding: 20px;
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.05);
+            margin: 35px 0;
+            font-size: 1.8em;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 25px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            position: relative;
         }
 
         .price-item:hover {
-            transform: scale(1.03);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05) translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .icon {
-            width: 40px;
+            width: 45px;
+            height: 45px;
             vertical-align: middle;
-            margin-right: 15px;
+            margin-right: 20px;
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+            transition: transform 0.3s ease;
+        }
+
+        .price-item:hover .icon {
+            transform: scale(1.2) rotate(5deg);
         }
 
         .button-link {
-            background: linear-gradient(45deg, #ff0000, #ff4d4d);
+            background: linear-gradient(45deg, var(--primary-red), #ff4d4d);
             color: white;
-            padding: 12px 25px;
-            border-radius: 25px;
+            padding: 15px 30px;
+            border-radius: 30px;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: inline-block;
-            margin-top: 15px;
-            font-size: 1em;
-            font-weight: bold;
+            margin-top: 20px;
+            font-size: 1.1em;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+            letter-spacing: 2px;
+            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
         }
 
         .button-link:hover {
-            background: linear-gradient(45deg, #ff4d4d, #ff0000);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5);
         }
 
-        @keyframes snowfall {
-            0% { background-position: 0 0; }
-            100% { background-position: 50px 50px; }
+        .button-link::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transform: rotate(45deg);
+            transition: 0.5s;
+        }
+
+        .button-link:hover::after {
+            left: 100%;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5),
+                                  0 0 15px rgba(255, 255, 255, 0.8),
+                                  0 0 5px var(--gold); }
+            50% { text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5),
+                              0 0 25px rgba(255, 255, 255, 0.8),
+                              0 0 15px var(--gold); }
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         @keyframes gradientAnimation {
@@ -137,12 +222,14 @@
     </style>
 </head>
 <body>
+    <div class="lights"></div>
+    <!-- Add snowflakes dynamically with JavaScript -->
 
     <h1>🎄 PRICES - Christmas Special 🎅</h1>
     <div class="price-list">
         <div class="price-item">
             <img src="https://cdn-icons-png.flaticon.com/512/174/174861.png" alt="PayPal Icon" class="icon"> 
-            • 12€ Paypal (Family And Friends Only)  
+            • 12€ Paypal (Family And Friends Only) 
             <br>
             <a class="button-link" href="https://www.paypal.me/AliKhammas143" target="_blank">Pay with PayPal</a>
         </div>
@@ -150,7 +237,7 @@
             <img src="https://openseauserdata.com/files/4af336feebe8b7637ca549aaf4873b5b.png" alt="Robux Icon" class="icon"> 
             • 900 ROBUX 
             <br>
-            <a class="button-link" href="https://www.roblox.com/game-pass/970651850" target="_blank">Purchase Robux</a>
+            <a class="button-link" href="https://www.roblox.com/catalog/101120969629293" target="_blank">Purchase Robux</a>
         </div>
         <div class="price-item">
             <img src="https://assets.umod.org/images/icons/plugin/624057848f3f2.png" alt="Nitro Boost Icon" class="icon"> 
@@ -160,5 +247,20 @@
         </div>
     </div>
 
+    <script>
+        // Add dynamic snowflakes
+        function createSnowflakes() {
+            for(let i = 0; i < 50; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                snowflake.style.opacity = Math.random();
+                snowflake.style.width = snowflake.style.height = (Math.random() * 0.5 + 0.2) + 'vw';
+                document.body.appendChild(snowflake);
+            }
+        }
+        createSnowflakes();
+    </script>
 </body>
 </html>
