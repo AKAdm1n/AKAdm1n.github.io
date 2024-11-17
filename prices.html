@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎄 AK Admin Prices - Christmas Edition 🎅</title>
+    <title>🎄 AK Admin Prices - Premium Christmas Edition 🎅</title>
     <link rel="icon" href="https://cdn.discordapp.com/attachments/1174404879545012275/1290061529680445561/IMG_0062.png?ex=66fd112c&is=66fbbfac&hm=01016e1014c200a554c70d5c1ffb5d3f23af9b5afc35f54132fc9da27caae8b6" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Mountains+of+Christmas:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Mountains+of+Christmas:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --primary-red: #ff0000;
             --primary-green: #1a472a;
             --gold: #ffd700;
+            --premium-gold: linear-gradient(45deg, #ffd700, #ffec8b);
+            --frost-white: rgba(255, 255, 255, 0.9);
         }
 
         body {
@@ -138,46 +141,32 @@
         }
 
         .button-link {
-            background: linear-gradient(45deg, var(--primary-red), #ff4d4d);
+            background: linear-gradient(45deg, #ff0000, #ff4d4d, #ff0000);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+            border: none;
+            padding: 15px 35px;
             color: white;
-            padding: 15px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: inline-block;
-            margin-top: 20px;
-            font-size: 1.1em;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 2px;
-            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .button-link:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5);
+        .button-link i {
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
         }
 
-        .button-link::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                transparent,
-                rgba(255, 255, 255, 0.3),
-                transparent
-            );
-            transform: rotate(45deg);
-            transition: 0.5s;
-        }
-
-        .button-link:hover::after {
-            left: 100%;
+        .button-link:hover i {
+            transform: translateX(5px);
         }
 
         @keyframes titleGlow {
@@ -208,6 +197,134 @@
             display: inline-block;
         }
 
+        /* Enhanced Christmas decorations */
+        .christmas-decoration {
+            position: absolute;
+            width: 100%;
+            height: 50px;
+            top: 0;
+            left: 0;
+            background: repeating-linear-gradient(
+                -45deg,
+                var(--primary-red) 0px,
+                var(--primary-red) 10px,
+                var(--primary-green) 10px,
+                var(--primary-green) 20px
+            );
+            opacity: 0.1;
+        }
+
+        /* Enhanced price items with premium design */
+        .price-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 25px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .price-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .price-item:hover::before {
+            transform: translateX(100%);
+        }
+
+        /* Premium label */
+        .premium-label {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--premium-gold);
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.7em;
+            color: #000;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .price-item:hover .premium-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* New floating elements */
+        .floating-element {
+            position: absolute;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* New price tag design */
+        .price-tag {
+            display: inline-block;
+            background: var(--premium-gold);
+            padding: 5px 15px;
+            border-radius: 20px;
+            color: #000;
+            font-weight: bold;
+            margin: 10px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transform: scale(1);
+            transition: transform 0.3s ease;
+        }
+
+        .price-item:hover .price-tag {
+            transform: scale(1.1);
+        }
+
+        /* New animations */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Add frost effect */
+        .frost-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            background: 
+                linear-gradient(45deg, 
+                    transparent 40%, 
+                    rgba(255, 255, 255, 0.1) 45%, 
+                    transparent 50%);
+            filter: blur(3px);
+            opacity: 0.5;
+        }
+
         @media (max-width: 600px) {
             h1 {
                 font-size: 2em;
@@ -222,16 +339,20 @@
     </style>
 </head>
 <body>
+    <div class="frost-overlay"></div>
+    <div class="christmas-decoration"></div>
     <div class="lights"></div>
-    <!-- Add snowflakes dynamically with JavaScript -->
 
-    <h1>🎄 PRICES - Christmas Special 🎅</h1>
+    <h1>🎄 PREMIUM PRICES - Christmas Special 🎅</h1>
     <div class="price-list">
         <div class="price-item">
+            <span class="premium-label">RECOMMENDED</span>
             <img src="https://cdn-icons-png.flaticon.com/512/174/174861.png" alt="PayPal Icon" class="icon"> 
-            • 12€ Paypal (Family And Friends Only) 
-            <br>
-            <a class="button-link" href="https://www.paypal.me/AliKhammas143" target="_blank">Pay with PayPal</a>
+            <div class="price-tag">12€ PayPal</div>
+            <div class="payment-note">(Family And Friends Only)</div>
+            <a class="button-link" href="https://www.paypal.me/AliKhammas143" target="_blank">
+                Pay with PayPal <i class="fas fa-arrow-right"></i>
+            </a>
         </div>
         <div class="price-item">
             <img src="https://openseauserdata.com/files/4af336feebe8b7637ca549aaf4873b5b.png" alt="Robux Icon" class="icon"> 
