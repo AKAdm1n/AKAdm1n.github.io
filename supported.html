@@ -4,231 +4,167 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Supported Executors</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <style>
-        /* Universal Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Enhanced Variables */
+        :root {
+            --primary-color: #90CAF9;
+            --secondary-color: #64B5F6;
+            --background: #1C1C1E;
+            --card-bg: #252526;
+            --text-primary: #E0E0E0;
+            --gradient-1: linear-gradient(135deg, #90CAF9, #64B5F6);
+            --gradient-2: linear-gradient(45deg, #FF4081, #FF79B0);
+            --neon-shadow: 0 0 10px rgba(144, 202, 249, 0.5);
         }
 
-        /* Fade-in Animation */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Enhanced Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px var(--primary-color); }
+            50% { box-shadow: 0 0 20px var(--primary-color); }
+            100% { box-shadow: 0 0 5px var(--primary-color); }
+        }
+
+        /* Enhanced Body */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1C1C1E;
-            color: #E0E0E0;
-            line-height: 1.6;
-            padding: 20px;
-            max-width: 1000px;
-            margin: auto;
-            animation: fadeIn 3s ease-out;
+            background: var(--background);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(144, 202, 249, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(100, 181, 246, 0.05) 0%, transparent 20%);
+            min-height: 100vh;
         }
 
-        h1, h2 {
-            color: #90CAF9;
-            border-bottom: 2px solid #90CAF9;
-            padding-bottom: 5px;
-            margin-top: 20px;
-            animation: fadeIn 3s ease-out;
-            animation-delay: 0.5s;
-            opacity: 0;
-            animation-fill-mode: forwards;
-        }
-
-        h3 {
-            color: #B0BEC5;
-            font-weight: 300;
-            margin-top: 10px;
-            margin-bottom: 30px;
-            font-size: 1rem;
-            animation: fadeIn 3s ease-out;
-            animation-delay: 1s;
-            opacity: 0;
-            animation-fill-mode: forwards;
-        }
-
-        /* Table Styling */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            border-radius: 8px;
+        /* Enhanced Header */
+        header {
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
             overflow: hidden;
-            animation: fadeIn 3s ease-out;
-            animation-delay: 1.5s;
-            opacity: 0;
-            animation-fill-mode: forwards;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
         }
 
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            animation: glow 3s infinite;
         }
 
-        th {
-            background-color: #2A2A2E;
-            color: #ECEFF1;
-            font-weight: 600;
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 3s infinite;
         }
 
-        td {
-            background-color: #252526;
-            transition: background-color 0.3s ease;
-        }
-
-        /* Row Hover Animation */
-        tr {
-            transition: all 0.3s ease;
+        /* Enhanced Tables */
+        table {
+            backdrop-filter: blur(10px);
+            background: rgba(37, 37, 38, 0.8);
+            border: 1px solid rgba(144, 202, 249, 0.2);
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         tr:hover td {
-            background-color: #33363D;
-            transform: translateX(5px);
-            box-shadow: -5px 0 10px rgba(144, 202, 249, 0.2);
+            background: rgba(51, 54, 61, 0.9);
+            transform: translateX(5px) translateZ(20px);
+            box-shadow: -5px 0 20px rgba(144, 202, 249, 0.3);
         }
 
-        /* Emoji Styles */
-        .green-dot { color: #4CAF50; }
-        .orange-dot { color: #FFA500; }
-        .red-dot { color: #FF5252; }
-        .question-dot { color: #FFEB3B; }
-
-        /* List Styling */
-        ul {
-            list-style: none;
-            padding-left: 0;
-            margin: 10px 0;
-            animation: fadeIn 3s ease-out;
-            animation-delay: 1.2s;
-            opacity: 0;
-            animation-fill-mode: forwards;
-        }
-
-        li {
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-        }
-
-        /* Link Styles with Hover Animation */
-        a {
-            color: #64B5F6;
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: #90CAF9;
-        }
-
-        a::after {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            background-color: #90CAF9;
-            bottom: -2px;
-            left: 0;
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        a:hover::after {
-            transform: scaleX(1);
-        }
-
-        /* Responsive Table */
-        @media (max-width: 768px) {
-            table, th, td {
-                display: block;
-                width: 100%;
-            }
-            th, td {
-                padding: 10px;
-                text-align: left;
-            }
-            tr {
-                margin-bottom: 15px;
-                border-bottom: 1px solid #444;
-            }
-        }
-
-        /* Status Badge Styling */
-        .status-badge {
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            margin-left: 8px;
-            font-weight: 500;
-        }
-
-        .green-dot .status-badge { background-color: rgba(76, 175, 80, 0.2); }
-        .orange-dot .status-badge { background-color: rgba(255, 165, 0, 0.2); }
-        .red-dot .status-badge { background-color: rgba(255, 82, 82, 0.2); }
-        .question-dot .status-badge { background-color: rgba(255, 235, 59, 0.2); }
-
-        /* Download Button Styling */
+        /* Enhanced Download Button */
         .download-btn {
-            display: inline-block;
-            padding: 6px 12px;
-            background-color: #64B5F6;
-            border-radius: 4px;
-            margin-left: 10px;
+            background: var(--gradient-1);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
             transition: all 0.3s ease;
+            box-shadow: var(--neon-shadow);
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
         }
 
         .download-btn:hover {
-            background-color: #90CAF9;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(144, 202, 249, 0.4);
         }
 
-        /* Section Transitions */
+        /* Enhanced Status Badges */
+        .status-badge {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Glass Card Effect */
+        .glass-card {
+            background: rgba(37, 37, 38, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        /* Floating Animation for Sections */
         section {
-            margin-bottom: 40px;
-            transition: transform 0.3s ease;
+            animation: float 6s ease-in-out infinite;
         }
 
-        section:hover {
-            transform: translateY(-5px);
-        }
-
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #1C1C1E;
-        }
-
+        /* Custom Scrollbar */
         ::-webkit-scrollbar-thumb {
-            background: #90CAF9;
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #64B5F6;
+            background: var(--gradient-1);
+            border-radius: 10px;
+            border: 3px solid var(--background);
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Supported Executors</h1>
-        <h3>If an executor runs the script but isn't listed, DM one of the owners for an update.</h3>
+        <h1 class="typed-title"></h1>
+        <div class="glass-card">
+            <h3>Welcome to the comprehensive list of supported executors</h3>
+        </div>
     </header>
     
     <section>
@@ -295,5 +231,34 @@
             </tbody>
         </table>
     </section>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Initialize Typed.js
+        new Typed('.typed-title', {
+            strings: ['Supported Executors', 'Compatible Tools', 'Verified Solutions'],
+            typeSpeed: 50,
+            backSpeed: 30,
+            backDelay: 2000,
+            loop: true
+        });
+
+        // Add dynamic particle background
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80 },
+                color: { value: '#90CAF9' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5 },
+                size: { value: 3 },
+                move: { enable: true, speed: 2 }
+            }
+        });
+    </script>
 </body>
 </html>
