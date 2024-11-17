@@ -163,6 +163,51 @@
                 padding: 10px;
             }
         }
+
+        /* Add to your existing styles */
+        .legend-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .legend-item:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .legend-item p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Enhanced table headers */
+        th {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 800;
+        }
+
+        /* Section headers */
+        .executor-section h2 {
+            background: var(--ultra-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -173,7 +218,60 @@
             <h1 class="mega-title typed-title"></h1>
         </header>
 
-        <!-- Your existing sections and tables here -->
+        <!-- ULTRA CLEAN Single List -->
+        <div class="executor-section" data-aos="fade-up">
+            <h2>Supported Executors ⚡</h2>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                <tr>
+                    <td>Codex</td>
+                    <td><span class="green-dot">🟢<span class="status-badge">Supported</span></span></td>
+                    <td><a href="#" class="download-btn">Download</a></td>
+                </tr>
+                <tr>
+                    <td>Fluxus</td>
+                    <td><span class="green-dot">🟢<span class="status-badge">Supported</span></span></td>
+                    <td><a href="#" class="download-btn">Download</a></td>
+                </tr>
+                <tr>
+                    <td>Hydrogen</td>
+                    <td><span class="orange-dot">🟠<span class="status-badge">Partial</span></span></td>
+                    <td><a href="#" class="download-btn">Download</a></td>
+                </tr>
+                <tr>
+                    <td>Delta</td>
+                    <td><span class="green-dot">🟢<span class="status-badge">Supported</span></span></td>
+                    <td><a href="#" class="download-btn">Download</a></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Status Legend -->
+        <div class="executor-section" data-aos="fade-up">
+            <h2>Status Legend 📋</h2>
+            <div class="legend-container">
+                <div class="legend-item">
+                    <span class="green-dot">🟢<span class="status-badge">Supported</span></span>
+                    <p>Fully supported and tested</p>
+                </div>
+                <div class="legend-item">
+                    <span class="orange-dot">🟠<span class="status-badge">Partial</span></span>
+                    <p>Partially supported, may have issues</p>
+                </div>
+                <div class="legend-item">
+                    <span class="question-dot">❓<span class="status-badge">Testing</span></span>
+                    <p>Currently under testing</p>
+                </div>
+                <div class="legend-item">
+                    <span class="red-dot">🔴<span class="status-badge">Not Supported</span></span>
+                    <p>Not currently supported</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
