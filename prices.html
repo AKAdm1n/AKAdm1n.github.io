@@ -3,396 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎄 AK Admin Prices - Premium Christmas Edition 🎅</title>
-    <link rel="icon" href="https://cdn.discordapp.com/attachments/1174404879545012275/1290061529680445561/IMG_0062.png?ex=66fd112c&is=66fbbfac&hm=01016e1014c200a554c70d5c1ffb5d3f23af9b5afc35f54132fc9da27caae8b6" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Mountains+of+Christmas:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>AK Admin Premium Prices</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary-red: #ff0000;
-            --primary-green: #1a472a;
-            --gold: #ffd700;
-            --premium-gold: linear-gradient(45deg, #ffd700, #ffec8b);
-            --frost-white: rgba(255, 255, 255, 0.9);
+            --bg-color: #0a192f;
+            --accent-color: #64ffda;
+            --text: #ffffff;
+            --card-bg: rgba(17, 34, 64, 0.7);
         }
 
-        body {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--primary-green) 0%, #2d5a27 50%, #0c1445 100%);
-            background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
+            background: var(--bg-color);
             min-height: 100vh;
             margin: 0;
             padding: 20px;
             text-align: center;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* Enhanced snowfall effect */
-        .snowflake {
-            --size: 1vw;
-            width: var(--size);
-            height: var(--size);
-            background: white;
-            border-radius: 50%;
-            position: absolute;
-            top: -5vh;
-            animation: snowfall linear infinite;
-        }
-
-        @keyframes snowfall {
-            0% {
-                transform: translateY(-10vh) rotate(0deg);
-            }
-            100% {
-                transform: translateY(110vh) rotate(360deg);
-            }
-        }
-
-        /* Christmas lights effect */
-        .lights {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: repeating-linear-gradient(90deg,
-                var(--gold) 0px 5px,
-                transparent 5px 20px);
-            animation: twinkle 1s infinite;
-            opacity: 0.7;
-            filter: blur(1px);
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 0.3; }
-        }
-
-        h1 {
-            font-family: 'Mountains of Christmas', cursive;
-            color: var(--primary-red);
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5),
-                         0 0 15px rgba(255, 255, 255, 0.8),
-                         0 0 5px var(--gold);
-            margin: 20px 0;
-            font-size: 3em;
-            letter-spacing: 3px;
-            animation: titleGlow 2s ease-in-out infinite;
+            overflow: hidden;
+            color: var(--text);
         }
 
         .price-list {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--card-bg);
             backdrop-filter: blur(10px);
             border-radius: 30px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             padding: 20px;
             margin: 15px auto;
             max-width: 600px;
-            border: 3px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(100, 255, 218, 0.2);
             position: relative;
             overflow: hidden;
         }
 
-        .price-list::before {
-            content: '';
-            position: absolute;
+        canvas {
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, 
-                transparent 0%,
-                rgba(255, 255, 255, 0.1) 50%,
-                transparent 100%);
-            animation: shine 3s infinite;
+            z-index: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-weight: 800;
+            color: var(--accent-color);
+            margin: 30px 0;
+            font-size: 1.8em;  /* Adjusted font size */
+            letter-spacing: -1px;
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
         }
 
         .price-item {
-            margin: 20px 0;
-            font-size: 1.4em;
+            margin: 15px 0;
+            font-size: 1.0em;  /* Adjusted font size */
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            padding: 15px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            position: relative;
+            padding: 15px;  /* Adjusted padding */
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(100, 255, 218, 0.1);
         }
 
         .price-item:hover {
             transform: scale(1.05) translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent-color);
         }
 
         .icon {
-            width: 35px;
-            height: 35px;
+            width: 25px;  /* Adjusted icon size */
+            height: 25px;
             vertical-align: middle;
-            margin-right: 15px;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-            transition: transform 0.3s ease;
-        }
-
-        .price-item:hover .icon {
-            transform: scale(1.2) rotate(5deg);
+            margin-right: 10px;  /* Adjusted margin */
+            filter: brightness(0.9);
         }
 
         .button-link {
-            background: linear-gradient(45deg, #ff0000, #ff4d4d, #ff0000);
-            background-size: 200% 200%;
-            animation: gradientShift 3s ease infinite;
-            border: none;
-            padding: 10px 25px;
-            color: white;
+            background: rgba(100, 255, 218, 0.1);
+            border: 1px solid var(--accent-color);
+            padding: 6px 15px;  /* Adjusted padding */
+            color: var(--accent-color);
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 2px;
             border-radius: 30px;
-            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            text-decoration: none;
+            margin-top: 15px;
         }
 
-        .button-link i {
-            font-size: 1.2em;
-            transition: transform 0.3s ease;
+        .button-link:hover {
+            background: rgba(100, 255, 218, 0.2);
+            transform: translateY(-2px);
         }
 
-        .button-link:hover i {
-            transform: translateX(5px);
-        }
-
-        @keyframes titleGlow {
-            0%, 100% { text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5),
-                                  0 0 15px rgba(255, 255, 255, 0.8),
-                                  0 0 5px var(--gold); }
-            50% { text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5),
-                              0 0 25px rgba(255, 255, 255, 0.8),
-                              0 0 15px var(--gold); }
-        }
-
-        @keyframes shine {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .audio-control {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: rgba(255, 140, 0, 0.8);
-            border-radius: 5px;
-            display: inline-block;
-        }
-
-        /* Enhanced Christmas decorations */
-        .christmas-decoration {
-            position: absolute;
-            width: 100%;
-            height: 50px;
-            top: 0;
-            left: 0;
-            background: repeating-linear-gradient(
-                -45deg,
-                var(--primary-red) 0px,
-                var(--primary-red) 10px,
-                var(--primary-green) 10px,
-                var(--primary-green) 20px
-            );
-            opacity: 0.1;
-        }
-
-        /* Enhanced price items with premium design */
-        .price-item {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 30px;
-            margin: 40px 0;
-            border-radius: 25px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .price-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
-            transform: translateX(-100%);
-            transition: 0.5s;
-        }
-
-        .price-item:hover::before {
-            transform: translateX(100%);
-        }
-
-        /* Premium label */
-        .premium-label {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--premium-gold);
-            padding: 5px 15px;
-            border-radius: 15px;
-            font-size: 0.7em;
-            color: #000;
-            font-weight: bold;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-        }
-
-        .price-item:hover .premium-label {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* New floating elements */
-        .floating-element {
-            position: absolute;
-            pointer-events: none;
-            animation: float 6s ease-in-out infinite;
-            opacity: 0.6;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
-
-        /* New price tag design */
         .price-tag {
             display: inline-block;
-            background: var(--premium-gold);
-            padding: 5px 15px;
+            background: rgba(100, 255, 218, 0.1);
+            padding: 4px 12px;  /* Adjusted padding */
             border-radius: 20px;
-            color: #000;
+            color: var(--accent-color);
             font-weight: bold;
-            margin: 10px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transform: scale(1);
-            transition: transform 0.3s ease;
+            margin: 6px 0;  /* Adjusted margin */
         }
 
-        .price-item:hover .price-tag {
-            transform: scale(1.1);
-        }
-
-        /* New animations */
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Add frost effect */
-        .frost-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            background: 
-                linear-gradient(45deg, 
-                    transparent 40%, 
-                    rgba(255, 255, 255, 0.1) 45%, 
-                    transparent 50%);
-            filter: blur(3px);
-            opacity: 0.5;
-        }
-
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 1.8em;
-            }
-            .price-item {
-                font-size: 1em;
-            }
-            .button-link {
-                font-size: 0.8em;
-            }
+        .payment-note {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.7em;
         }
     </style>
-    <!-- Discord/Open Graph Meta Tags -->
-    <meta property="og:title" content="🎄 Premium Prices - Christmas Special 🎅">
-    <meta property="og:description" content="Check out our special Christmas pricing for Premium access! PayPal, Robux, and Nitro Boost options available.">
-    <meta property="og:image" content="https://cdn.discordapp.com/attachments/1174404879545012275/1307764171370135602/image.png?ex=673b7dcb&is=673a2c4b&hm=1dee441ce57715604afa2ad411eb4fb42272dd7082f491f2b1f8bce00022de47&">
-    <meta property="og:url" content="[https://akadm1n.github.io/prices.html]">
-    <meta property="og:type" content="website">
-    <meta property="theme-color" content="#1a472a">
-    <meta property="og:title" content="AK Admin Prices - Premium Christmas Edition" />
-    <meta property="og:description" content="Check out our special Christmas pricing for Premium access! PayPal, Robux, and Nitro Boost options available." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://akadm1n.github.io/prices.html" />
 </head>
 <body>
-    <div class="frost-overlay"></div>
-    <div class="christmas-decoration"></div>
-    <div class="lights"></div>
-
-    <h1>🎄 PREMIUM PRICES - Christmas Special 🎅</h1>
-    <div class="price-list">
-        <div class="price-item">
-            <span class="premium-label">RECOMMENDED</span>
-            <img src="https://cdn-icons-png.flaticon.com/512/174/174861.png" alt="PayPal Icon" class="icon"> 
-            <div class="price-tag">12€ PayPal</div>
-            <div class="payment-note">(Family And Friends Only)</div>
-            <a class="button-link" href="https://www.paypal.me/AliKhammas143" target="_blank">
-                Pay with PayPal <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
-        <div class="price-item">
-            <img src="https://openseauserdata.com/files/4af336feebe8b7637ca549aaf4873b5b.png" alt="Robux Icon" class="icon"> 
-            • 900 ROBUX 
-            <br>
-            <a class="button-link" href="https://www.roblox.com/game-pass/970651850" target="_blank">Purchase Robux</a>
-        </div>
-        <div class="price-item">
-            <img src="https://assets.umod.org/images/icons/plugin/624057848f3f2.png" alt="Nitro Boost Icon" class="icon"> 
-            • 3 Nitro Server Boosts
-            <br>
-            <a class="button-link" href="https://discord.gg/bgWY2zEV7z" target="_blank">Join Discord Server</a>
+    <canvas id="floatingDots"></canvas>
+    <div class="content">
+        <h1>AK Admin Premium Prices</h1>
+        <div class="price-list">
+            <div class="price-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174861.png" alt="PayPal Icon" class="icon">
+                <div class="price-tag">12€ PayPal</div>
+                <div class="payment-note">(Family And Friends Only)</div>
+                <a class="button-link" href="https://www.paypal.me/AliKhammas143" target="_blank">
+                    Pay with PayPal <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="price-item">
+                <img src="https://assets.umod.org/images/icons/plugin/624057848f3f2.png" alt="Nitro Boost Icon" class="icon"> 
+                <div class="price-tag">3 Nitro Server Boosts</div>
+                <div class="points-info">Only 400 points (Non-permanent whitelist)</div>
+                <a class="button-link" href="https://discord.gg/bgWY2zEV7z" target="_blank">
+                    Join Discord Server <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="price-item">
+                <img src="https://openseauserdata.com/files/4af336feebe8b7637ca549aaf4873b5b.png" alt="Robux Icon" class="icon">
+                <div class="price-tag">900 ROBUX</div>
+                <a class="button-link" href="https://www.roblox.com/game-pass/970651850" target="_blank">
+                    Purchase Robux <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
         </div>
     </div>
-
     <script>
-        // Add dynamic snowflakes
-        function createSnowflakes() {
-            for(let i = 0; i < 50; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.className = 'snowflake';
-                snowflake.style.left = Math.random() * 100 + 'vw';
-                snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                snowflake.style.opacity = Math.random();
-                snowflake.style.width = snowflake.style.height = (Math.random() * 0.5 + 0.2) + 'vw';
-                document.body.appendChild(snowflake);
+        const canvas = document.getElementById("floatingDots");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const dots = [];
+        const dotCount = 100;
+        const mouse = { x: null, y: null };
+
+        class Dot {
+            constructor(x, y, dx, dy) {
+                this.x = x;
+                this.y = y;
+                this.dx = dx;
+                this.dy = dy;
+                this.radius = Math.random() * 3 + 1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = "rgba(100, 255, 218, 0.7)";
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            update() {
+                this.x += this.dx;
+                this.y += this.dy;
+
+                if (this.x < 0 || this.x > canvas.width) this.dx = -this.dx;
+                if (this.y < 0 || this.y > canvas.height) this.dy = -this.dy;
+
+                this.draw();
             }
         }
-        createSnowflakes();
+
+        function connectDots() {
+            for (let i = 0; i < dots.length; i++) {
+                for (let j = i + 1; j < dots.length; j++) {
+                    const distance = Math.hypot(dots[i].x - dots[j].x, dots[i].y - dots[j].y);
+                    if (distance < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(dots[i].x, dots[i].y);
+                        ctx.lineTo(dots[j].x, dots[j].y);
+                        ctx.strokeStyle = `rgba(100, 255, 218, ${1 - distance / 150})`;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function handleMouseConnection() {
+            for (let dot of dots) {
+                const distance = Math.hypot(dot.x - mouse.x, dot.y - mouse.y);
+                if (distance < 200) {
+                    ctx.beginPath();
+                    ctx.moveTo(dot.x, dot.y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.strokeStyle = `rgba(100, 255, 218, ${1 - distance / 200})`;
+                    ctx.stroke();
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            dots.forEach(dot => dot.update());
+            connectDots();
+            if (mouse.x && mouse.y) handleMouseConnection();
+            requestAnimationFrame(animate);
+        }
+
+        function init() {
+            for (let i = 0; i < dotCount; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const dx = (Math.random() - 0.5) * 2;
+                const dy = (Math.random() - 0.5) * 2;
+                dots.push(new Dot(x, y, dx, dy));
+            }
+        }
+
+        canvas.addEventListener("mousemove", e => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        canvas.addEventListener("mouseleave", () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        init();
+        animate();
     </script>
 </body>
 </html>
